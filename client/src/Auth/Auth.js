@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: process.env.REACT_APP_auth0_domain,
+    domain: "marcodellolio.auth0.com",
     clientID: process.env.REACT_APP_auth0_clientID,
     redirectUri: process.env.REACT_APP_auth0_redirectUri,
     audience: process.env.REACT_APP_auth0_audience,

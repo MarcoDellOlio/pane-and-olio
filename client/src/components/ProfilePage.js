@@ -30,5 +30,5 @@ class Profile extends Component {
     );
   }
 }
-
+// d
 export default Profile;

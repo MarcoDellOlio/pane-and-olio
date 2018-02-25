@@ -13,7 +13,7 @@ export default class Auth {
   });
 
  
-// test
+
   constructor() {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);

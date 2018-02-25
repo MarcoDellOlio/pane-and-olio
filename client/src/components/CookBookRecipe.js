@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Wrapper, Img} from './BasicComponents'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 
 class CookbookRecipe extends Component {
@@ -16,10 +17,12 @@ class CookbookRecipe extends Component {
             this.setState({selected : false})
     }
 
+   
+
     render() {
 
         const recipe = this.props
-        
+        const recipeUrl = `recipes/${recipe.id}`
         return (
             <Recipe >
                 <RecipeBar>
@@ -28,7 +31,8 @@ class CookbookRecipe extends Component {
                         !this.state.selected? null :
                         
                         <div>
-                            <Img src={recipe.image} alt=""/> 
+                            <Img src={recipe.image} alt=""/>
+                            <div><Link to={recipeUrl}>Recipe</Link></div>
                         </div>
                     }        
                 </RecipeBar>

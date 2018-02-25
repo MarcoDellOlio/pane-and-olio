@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Img, Wrapper} from './BasicComponents'
+import IngredientsView from './IngredientsView'
+import PreparationView from './PreparationView'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -24,12 +26,13 @@ class RecipePage extends Component {
         .then((res) => { this.setState({recipe : res.data}) })
     }
 
-    ingredientsOrPreparation = () => {
-        this.state.ingredientsOrPreparation === "ingredients"?
-        this.setState({ingredientsOrPreparation : "preparation"})
-        :
+    showIngredients = () => {
         this.setState({ingredientsOrPreparation : "ingredients"})
-    } 
+    }
+    
+    showPreparation = () => {
+        this.setState({ingredientsOrPreparation : "preparation"})
+    }
     
     componentWillMount() {
         this.getRecipeInfo()
@@ -46,9 +49,16 @@ class RecipePage extends Component {
 
                 <RecipeContent>
                     <RecipeMenu>
-                        <div onClick={() => this.ingredientsOrPreparation()}>Ingredients</div>
-                        <div onClick={() => this.ingredientsOrPreparation()}>Preparation</div>
+                        <div onClick={() => this.showIngredients()}>Ingredients</div>
+                        <div onClick={() => this.showPreparation()}>Preparation</div>
                     </RecipeMenu>
+                    {
+                        this.state.ingredientsOrPreparation === "ingredients"?
+                        <IngredientsView/>
+                        :
+                        <PreparationView/>
+                    }
+                    
 
                 </RecipeContent>
 

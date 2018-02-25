@@ -1,42 +1,27 @@
 import React, { Component } from 'react'
+import CookBookRecipeList from './CookBookRecipeList'
 import {Wrapper, Img} from './BasicComponents'
 import styled from 'styled-components'
 import axios from 'axios'
 
 class Cookbook extends Component {
 
-  state = {
-    recipes : []
-  }
-
-  getRecipes = () => {
-    const userId = localStorage.userId
-    
-    axios.get(`api/recipes/${userId}`)
-    .then((res) => {
-      const recipesIdList = res.data.map((recipe) => {
-        return recipe.recipeId}).join("%2C")
-
-      axios({
-        method: 'get',
-        url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${recipesIdList}&includeNutrition=false`,
-        headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
-      })
-      .then((res) => this.setState({recipes : res.data}))
-    })
-    .catch((error) => { console.log(error) })
-  }
-
-  
-  componentWillMount() {
-    this.getRecipes()
-  }
-  
-
     render() {
+
+      const name = localStorage.name? 
+        localStorage.name === localStorage.email? localStorage.username 
+        : 
+        localStorage.name.split(" ")[0]  
+        : 
+        null
         
         return (
             <Wrapper>
+
+              <div>{name}'s Cookbook </div>
+
+              <CookBookRecipeList/>
+
                 
             </Wrapper>
 
@@ -45,3 +30,5 @@ class Cookbook extends Component {
   }
   
   export default Cookbook;
+
+  

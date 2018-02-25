@@ -38,5 +38,5 @@ export default Home;
 const SplashImage = styled.div`
     width : 100%;
     height : 30%;
-    margin : 3% 0;
+    margin : 3%;
 `

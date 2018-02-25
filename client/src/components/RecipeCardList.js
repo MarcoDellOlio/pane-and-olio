@@ -50,6 +50,7 @@ class RecipeCardList extends Component {
     flex-direction : row;
     flex-wrap : wrap;
     justify-content : space-around;
+    height : auto;
   `
 
   const recipeslist = [

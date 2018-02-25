@@ -41,8 +41,11 @@ class RecipePage extends Component {
     render() {
 
         const recipe = this.state.recipe
-       
+        const ingredients = this.state.recipe.extendedIngredients
+        const instructions = this.state.recipe.analyzedInstructions
+
         return (
+            
             <Wrapper>
 
                 <div>{recipe.title}</div>
@@ -54,9 +57,9 @@ class RecipePage extends Component {
                     </RecipeMenu>
                     {
                         this.state.ingredientsOrPreparation === "ingredients"?
-                        <IngredientsView/>
+                        <IngredientsView ingredients={ingredients}/>
                         :
-                        <PreparationView/>
+                        <PreparationView instructions={instructions}/>
                     }
                     
 

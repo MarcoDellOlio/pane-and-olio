@@ -8,14 +8,26 @@ import axios from 'axios'
 
 class IngredientsView extends Component {
 
-  
-
     render() {
+
+       const ingredientsList = () => {
+           if (this.props.ingredients) {
+               return this.props.ingredients.map((ingredient, index) => {
+                return (
+                    <div key={index}>
+                        <div>{ingredient.originalString} </div>
+                    </div>
+                )
+            })
+           }
+       }
+
+
    
-        
+
         return (
            <Wrapper>
-               BANANA
+               {ingredientsList()}
            </Wrapper>
 
 

@@ -15,13 +15,14 @@ class Cookbook extends Component {
     axios.get(`api/recipes/${userId}`)
     .then((res) => {
       const recipesIdList = res.data.map((recipe) => {
-        return recipe.recipeId}).join("%")
+        return recipe.recipeId}).join("%2C")
 
       axios({
         method: 'get',
         url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${recipesIdList}&includeNutrition=false`,
         headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
       })
+      .then((res) => this.setState({recipes : res.data}))
     })
     .catch((error) => { console.log(error) })
   }

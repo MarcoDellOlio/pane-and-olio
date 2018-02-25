@@ -12,8 +12,6 @@ export default class Auth {
     scope: 'openid profile email'
   });
 
- 
-
   constructor() {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);

@@ -13,7 +13,7 @@ class RecipeList extends Component {
   getRecipes = () => {
     const userId = localStorage.userId
     
-    axios.get(`api/recipes/${userId}`)
+    axios.get(`api/recipes/list/${userId}`)
     .then((res) => {
       const recipesIdList = res.data.map((recipe) => {
         return recipe.recipeId}).join("%2C")

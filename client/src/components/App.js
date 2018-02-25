@@ -5,6 +5,7 @@ import Home from './Home';
 import ProfilePage from './ProfilePage'
 import CallbackComponent from './CallbackComponent';
 import Cookbook from './CookbookComponent'
+import RecipePage from './RecipePage'
 import Auth from '../Auth/Auth';
 import history from '../Auth/history';
 import styled from 'styled-components';
@@ -36,6 +37,7 @@ class App extends Component {
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/profile" render={(props) => (!auth.isAuthenticated() ? (<Redirect to="/home"/>) : (<ProfilePage auth={auth} {...props} />))}/>
           <Route exact path="/cookbook" render={(props) => (!auth.isAuthenticated() ? <Redirect to="/home"/> : <Cookbook/>)}/>
+          <Route exact path="/recipes/:recipeId" render={(props) => (!auth.isAuthenticated() ? <Redirect to="/home"/> : <RecipePage {...props}/>)}/>
         </Switch>
           <Route exact path="/callback" render={(props) => {handleAuthentication(props); return <CallbackComponent {...props} /> }}/>
       </AppContainer>

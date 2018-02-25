@@ -12,11 +12,13 @@ const User = require('../db/models/userModel')
             .catch((error) => { console.log(error) })
     })
 
-    router.get('/:userId', (req, res) => {
+    router.get('/list/:userId', (req, res) => {
         User.findById(req.params.userId)
             .then((user) => {res.json(user.recipes)})
             .catch((error) => { console.log(error) })
     })
+
+
 
 
 module.exports = router

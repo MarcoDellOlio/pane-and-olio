@@ -9,11 +9,6 @@ class RecipeCardList extends Component {
       recipes : recipeslist
     }
 
-    getUserInfo = () => {
-
-
-    }
-
     getRecipes = () => {
         axios({
             method: 'get',

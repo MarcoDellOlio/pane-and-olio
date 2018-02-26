@@ -10,10 +10,6 @@ import axios from 'axios'
 class IngredientsView extends Component {
 
 
-    makeGreen = () => {
-
-    }
-
     render() {
 
        const ingredientsList = () => {

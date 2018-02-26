@@ -14,7 +14,7 @@ class RecipeCard extends Component {
       const userId = localStorage.userId
       const newRecipe = {recipeId, name}
 
-      axios.post(`api/recipes/${userId}`, newRecipe)
+      axios.post(`api/users/${userId}/recipes`, newRecipe)
       .then(res => console.log(res))
       .catch((error) => { console.log(error) })
 

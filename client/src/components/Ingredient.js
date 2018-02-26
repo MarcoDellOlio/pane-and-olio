@@ -8,12 +8,8 @@ import axios from 'axios'
 
 class Ingredient extends Component {
 
-    state = {
-        haveIt : ""
-    }
-
-    makeGreen = () => {
-
+    isPresent = () => {
+        axios.post()
     }
 
     render() {

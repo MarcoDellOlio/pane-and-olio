@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Ingredient = new Schema(
+const IngredientSchema = new Schema(
   {
     title: {type: String, required: true},
     ingredientId: {type: String, required: true},

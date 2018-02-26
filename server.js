@@ -25,7 +25,7 @@ const UsersController = require('./routes/UsersController')
 app.use('/api/users', UsersController)
 
 const RecipesController = require('./routes/RecipesController')
-app.use('/api/recipes', RecipesController)
+app.use('/api/users/:userId/recipes', RecipesController)
 
 // redirect to the home page
 app.get('*', (req,res) => {

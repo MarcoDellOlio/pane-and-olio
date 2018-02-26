@@ -1,8 +1,8 @@
 const express = require('express')
-const router = express.Router()
+const router = express.Router(({ mergeParams: true }))
 const User = require('../db/models/userModel')
 
-    router.post('/:userId', (req, res) => {
+    router.post('/', (req, res) => {
         User.findById(req.params.userId)
             .then((user) => {
                 user.recipes.push(req.body)
@@ -12,11 +12,13 @@ const User = require('../db/models/userModel')
             .catch((error) => { console.log(error) })
     })
 
-    router.get('/list/:userId', (req, res) => {
+    router.get('/', (req, res) => {
         User.findById(req.params.userId)
             .then((user) => {res.json(user.recipes)})
             .catch((error) => { console.log(error) })
     })
+
+    router.get('/')
 
 
 

@@ -67,8 +67,6 @@ class GroceryList extends Component {
                 <GroceryItem key={product._id} {...product} removeItem={this.removeItem}/>
             )
         })
-        console.log(this.state.groceryList)
-
 
         return (
 

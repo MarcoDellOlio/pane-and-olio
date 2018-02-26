@@ -40,7 +40,7 @@ class Ingredient extends Component {
         }
        axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
        .then(res => { 
-        axios.post(`/api/users/${userId}/grocerylist` , res.data.ingredient)
+        return axios.post(`/api/users/${userId}/grocerylist` , res.data.ingredient)
        })
        .then(res => console.log(res))
        .catch((error) => { console.log(error) })

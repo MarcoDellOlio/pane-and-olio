@@ -32,9 +32,10 @@ const User = require('../db/models/userModel')
                     recipe.ingredientsList.push(req.body)
                 }
 
-                return user.save()
+                user.save()
+                return req.body
             })
-            .then((user) => res.json({user}))
+            .then((ingredient) => res.json({ingredient}))
             .catch((error) => { console.log(error) })
     })
 

@@ -8,6 +8,9 @@ import axios from 'axios'
 
 class Ingredient extends Component {
 
+    state = {
+        ingredient : {}
+    }
 
     isPresent = (trueOrFalse) => {
         const recipeId = this.props.recipeId
@@ -17,21 +20,30 @@ class Ingredient extends Component {
             ingredientId: this.props.id,
             present : trueOrFalse
         }
-        console.log(recipeId)
         axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
-        .then(res => console.log(res))
+        .then(res => {
+            this.setState({ingredient : res.data.ingredient})
+            console.log(res)
+        })
         .catch((error) => { console.log(error) })
     }
+
+    
+    componentWillMount() {
+        
+    }
+    
+
 
     
 
     render() {
 
         const ingredient = this.props
-        
+        const present = this.state.ingredient.present
 
         return (
-           <IngredientWrapper>
+           <IngredientWrapper present={present} >
                 <div>{ingredient.originalString} </div>
                 <CheckButton onClick={() => this.isPresent(true)} >ok</CheckButton>
                 <CheckButton onClick={() => this.isPresent(false)} >no</CheckButton>
@@ -47,7 +59,13 @@ class Ingredient extends Component {
 
   const IngredientWrapper = Wrapper.extend`
    flex-direction : row;
+   background-color : ${props => {
+       if (props.present === undefined) {return "grey"}
+       else if (props.present === false) {return "red"}
+       else {return "green"}
+   }};
   `
+
 
   const CheckButton = styled.div`
   

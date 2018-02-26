@@ -34,6 +34,7 @@ class Ingredient extends Component {
            <IngredientWrapper>
                 <div>{ingredient.originalString} </div>
                 <CheckButton onClick={() => this.isPresent(true)} >ok</CheckButton>
+                <CheckButton onClick={() => this.isPresent(false)} >no</CheckButton>
                 <div>buy</div>
            </IngredientWrapper>
 

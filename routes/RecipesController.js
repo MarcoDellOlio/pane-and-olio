@@ -22,7 +22,16 @@ const User = require('../db/models/userModel')
         User.findById(req.params.userId)
             .then((user) => {
                 const recipe = user.recipes.id(req.params.recipeId)
-                recipe.ingredientsList.push(req.body)
+                const isRecipeInDB = recipe.ingredientsList.findIndex((ingredient) => {
+                                    return parseInt(ingredient.ingredientId) === req.body.ingredientId
+                                    })
+                if (isRecipeInDB !== -1) {
+                    recipe.ingredientsList.splice(isRecipeInDB,1,req.body)
+                }
+                else {
+                    recipe.ingredientsList.push(req.body)
+                }
+
                 return user.save()
             })
             .then((user) => res.json({user}))

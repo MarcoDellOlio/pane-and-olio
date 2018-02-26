@@ -12,11 +12,13 @@ class IngredientsView extends Component {
 
     render() {
 
-       const ingredientsList = () => {
+        const recipeId = this.props.recipeId
+
+        const ingredientsList = () => {
            if (this.props.ingredients) {
                return this.props.ingredients.map((ingredient, index) => {
                 return (
-                    <Ingredient key={index} {...ingredient}/>
+                    <Ingredient key={index} {...ingredient} recipeId={recipeId}/>
                 )
             })
            }

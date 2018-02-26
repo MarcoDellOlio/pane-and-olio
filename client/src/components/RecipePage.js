@@ -12,6 +12,7 @@ class RecipePage extends Component {
 
     state = {
         recipe : {},
+        savedRecipeId : "",
         ingredientsOrPreparation : "ingredients"
     }
 
@@ -26,6 +27,20 @@ class RecipePage extends Component {
         .then((res) => { this.setState({recipe : res.data}) })
     }
 
+    getSavedRecipeId = () => {
+        const recipeId = this.props.match.params.recipeId
+        const userId = localStorage.userId
+        axios.get(`/api/users/${userId}/recipes`)
+        .then((res) => {
+            return res.data.filter((recipe) => 
+            {return recipe.recipeId === recipeId.toString()})
+        })
+        .then((savedRecipe) => {
+            this.setState({savedRecipeId : savedRecipe[0]._id})
+        })
+        .catch((error) => { console.log(error) })
+    }
+
     showIngredients = () => {
         this.setState({ingredientsOrPreparation : "ingredients"})
     }
@@ -36,11 +51,13 @@ class RecipePage extends Component {
     
     componentWillMount() {
         this.getRecipeInfo()
+        this.getSavedRecipeId()
     }
 
     render() {
 
         const recipe = this.state.recipe
+        const savedRecipeId = this.state.savedRecipeId
         const ingredients = this.state.recipe.extendedIngredients
         const instructions = this.state.recipe.analyzedInstructions
 
@@ -57,9 +74,9 @@ class RecipePage extends Component {
                     </RecipeMenu>
                     {
                         this.state.ingredientsOrPreparation === "ingredients"?
-                        <IngredientsView ingredients={ingredients}/>
+                        <IngredientsView ingredients={ingredients} recipeId={savedRecipeId}/>
                         :
-                        <PreparationView instructions={instructions}/>
+                        <PreparationView instructions={instructions} recipeId={savedRecipeId}/>
                     }
                     
 

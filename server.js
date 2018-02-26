@@ -30,6 +30,12 @@ app.use('/api/users/:userId/recipes', RecipesController)
 const GroceryListController = require('./routes/GroceryListController')
 app.use('/api/users/:userId/grocerylist', GroceryListController)
 
+const SmsController = require('./routes/SmsController')
+app.use('/api/sms', SmsController)
+
+const EmailController = require('./routes/EmailController')
+app.use('/api/email', EmailController)
+
 // redirect to the home page
 app.get('*', (req,res) => {
   res.sendFile(__dirname + '/client/build/index.html')

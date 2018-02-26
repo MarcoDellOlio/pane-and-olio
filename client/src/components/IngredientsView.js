@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Img, Wrapper} from './BasicComponents'
+import Ingredient from './Ingredient'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -8,29 +9,27 @@ import axios from 'axios'
 
 class IngredientsView extends Component {
 
+
+    makeGreen = () => {
+
+    }
+
     render() {
 
        const ingredientsList = () => {
            if (this.props.ingredients) {
                return this.props.ingredients.map((ingredient, index) => {
                 return (
-                    <div key={index}>
-                        <div>{ingredient.originalString} </div>
-                    </div>
+                    <Ingredient key={index} {...ingredient}/>
                 )
             })
            }
-       }
-
-
-   
+        }
 
         return (
            <Wrapper>
                {ingredientsList()}
            </Wrapper>
-
-
         )
     }
   }

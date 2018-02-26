@@ -1,11 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const Ingredient = new Schema(
+  {
+    title: {type: String, required: true},
+    ingredientId: {type: String, required: true},
+    present : {type: Boolean}
+  },
+  {
+    timestamps: {},
+  }
+)
 
 const RecipeSchema = new Schema(
   {
     name: {type: String, required: true},
-    recipeId: {type: String, required: true}
+    recipeId: {type: String, required: true},
+    ingredientsList : []
   },
   {
     timestamps: {},
@@ -42,5 +53,6 @@ const UserSchema = new Schema(
 module.exports = {
   UserSchema,
   GroceryListSchema,
-  RecipeSchema
+  RecipeSchema,
+  IngredientSchema
 }

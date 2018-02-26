@@ -4,8 +4,11 @@ const Schema = mongoose.Schema;
 const IngredientSchema = new Schema(
   {
     name: {type: String, required: true},
+    description : {type: String},
     ingredientId: {type: String, required: true},
-    present : {type: Boolean}
+    present : {type: Boolean},
+    inCart : {type: Boolean},
+    numberInCart : {type: Number}
   },
   {
     timestamps: {},
@@ -41,7 +44,7 @@ const UserSchema = new Schema(
     email: {type: String, required: true},
     id_token: {type: String},
     recipes : [RecipeSchema],
-    groceryList : [GroceryListSchema]
+    groceryList : [IngredientSchema]
   },
   {
       timestamps: {},

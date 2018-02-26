@@ -39,6 +39,7 @@ class NavbarComponent extends Component {
                 <button onClick={this.logout.bind(this)}> Log Out </button>
                 <div> Hi {name}</div>
                 <div> <Link to='/cookbook'>Cookbook</Link> </div>
+                <div><Link to='/groceryList'>Grocery List</Link></div>
                 
               </LoginInfo> 
             }

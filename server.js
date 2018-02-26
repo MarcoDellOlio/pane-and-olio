@@ -27,6 +27,9 @@ app.use('/api/users', UsersController)
 const RecipesController = require('./routes/RecipesController')
 app.use('/api/users/:userId/recipes', RecipesController)
 
+const GroceryListController = require('./routes/GroceryListController')
+app.use('/api/users/:userId/grocerylist', GroceryListController)
+
 // redirect to the home page
 app.get('*', (req,res) => {
   res.sendFile(__dirname + '/client/build/index.html')

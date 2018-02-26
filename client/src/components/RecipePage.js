@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Img, Wrapper} from './BasicComponents'
+import {Wrapper} from './BasicComponents'
 import IngredientsView from './IngredientsView'
 import PreparationView from './PreparationView'
-import styled from 'styled-components'
 import axios from 'axios'
 
 

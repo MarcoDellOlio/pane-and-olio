@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Wrapper, Img} from './BasicComponents'
+import {Img} from './BasicComponents'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
@@ -55,9 +55,4 @@ class CookbookRecipe extends Component {
 
   const RecipeBar = styled.div`
     width : 100%
-  `
-
-  const RecipeContent = styled.div`
-    width : 100%;
-    height : auto;
   `

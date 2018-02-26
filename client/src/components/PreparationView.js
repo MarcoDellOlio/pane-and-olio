@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Img, Wrapper} from './BasicComponents'
-import styled from 'styled-components'
-import axios from 'axios'
+import {Wrapper} from './BasicComponents'
+
 
 
 

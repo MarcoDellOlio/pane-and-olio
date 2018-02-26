@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Img, Wrapper} from './BasicComponents'
+import {Wrapper} from './BasicComponents'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -17,6 +17,7 @@ class Ingredient extends Component {
         const userId = localStorage.userId
         const ingredient = {
             name: this.props.name,
+            description : this.props.originalString,
             ingredientId: this.props.id,
             present : trueOrFalse
         }
@@ -26,6 +27,23 @@ class Ingredient extends Component {
             console.log(res)
         })
         .catch((error) => { console.log(error) })
+    }
+
+    addToGroceryList = () => {
+        const userId = localStorage.userId
+        const recipeId = this.props.recipeId
+        const ingredient = {
+            name: this.props.name,
+            description : this.props.originalString,
+            ingredientId: this.props.id,
+            inCart : true
+        }
+       axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
+       .then(res => { 
+        axios.post(`/api/users/${userId}/grocerylist` , res.data.ingredient)
+       })
+       .then(res => console.log(res))
+       .catch((error) => { console.log(error) })
     }
 
     
@@ -47,7 +65,7 @@ class Ingredient extends Component {
                 <div>{ingredient.originalString} </div>
                 <CheckButton onClick={() => this.isPresent(true)} >ok</CheckButton>
                 <CheckButton onClick={() => this.isPresent(false)} >no</CheckButton>
-                <div>buy</div>
+                <div onClick={() => this.addToGroceryList()}>buy</div>
            </IngredientWrapper>
 
 

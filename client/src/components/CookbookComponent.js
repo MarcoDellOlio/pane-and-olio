@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import CookBookRecipeList from './CookBookRecipeList'
-import {Wrapper, Img} from './BasicComponents'
-import styled from 'styled-components'
-import axios from 'axios'
+import {Wrapper} from './BasicComponents'
 
 class Cookbook extends Component {
 

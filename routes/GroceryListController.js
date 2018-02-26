@@ -28,4 +28,14 @@ router.get('/', (req, res) => {
         .catch((error) => { console.log(error) })
 })
 
+router.delete('/:productId', (req, res) => {
+    User.findById(req.params.userId)
+    .then(user => {
+       user.groceryList.id(req.params.productId).remove()
+       user.save()
+       return user.groceryList
+    })
+    .then(groceryList => res.json(groceryList))
+})
+
 module.exports = router

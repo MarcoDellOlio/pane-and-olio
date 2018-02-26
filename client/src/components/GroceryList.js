@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Wrapper} from './BasicComponents'
+import GroceryItem from './GroceryItem'
 import axios from 'axios'
 
 
@@ -20,8 +21,12 @@ class GroceryList extends Component {
         )
         .catch((error) => { console.log(error) })
     }
-        
 
+    removeItem = (productId) => {
+        const userId = localStorage.userId
+        axios.delete(`/api/users/${userId}/grocerylist/${productId}`)
+        .then((res) => this.setState({groceryList : res.data}))
+    }
 
     componentWillMount = () => {
       this.getGroceryList()
@@ -30,10 +35,9 @@ class GroceryList extends Component {
 
     render() {
 
-        
         const groceryList = this.state.groceryList.map((product) => {
             return (
-                <div key={product._id}>{product.name}</div>
+                <GroceryItem key={product._id} {...product} removeItem={this.removeItem}/>
             )
         })
         console.log(this.state.groceryList)
@@ -44,7 +48,6 @@ class GroceryList extends Component {
             <Wrapper>
                 <div>Grocery List</div>
                 {groceryList}
-
             </Wrapper>
         )
     }

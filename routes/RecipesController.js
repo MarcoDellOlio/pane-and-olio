@@ -21,14 +21,12 @@ const User = require('../db/models/userModel')
     router.post('/:recipeId', (req, res) => {
         User.findById(req.params.userId)
             .then((user) => {
-                const recipes = user.recipes
-                recipes.findOne({'recipeId':req.params.recipeId},function (err, recipe){
-                    console.log(recipe)
-                  })
-                
+                const recipe = user.recipes.id(req.params.recipeId)
+                recipe.ingredientsList.push(req.body)
+                return user.save()
             })
+            .then((user) => res.json({user}))
             .catch((error) => { console.log(error) })
-        res.json({io : "marco"})
     })
 
 

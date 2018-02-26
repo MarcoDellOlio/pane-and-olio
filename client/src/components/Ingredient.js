@@ -17,7 +17,7 @@ class Ingredient extends Component {
             ingredientId: this.props.id,
             present : trueOrFalse
         }
-
+        console.log(recipeId)
         axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
         .then(res => console.log(res))
         .catch((error) => { console.log(error) })

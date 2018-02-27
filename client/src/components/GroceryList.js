@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import {Wrapper} from './BasicComponents'
 import GroceryItem from './GroceryItem'
 import axios from 'axios'
-// import twilio from 'twilio'
 
-
-
+const getPosition = function (options) {
+    return new Promise(function (resolve, reject) {
+      navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
+  }
 
 class GroceryList extends Component {
 
@@ -54,26 +56,25 @@ class GroceryList extends Component {
         event.preventDefault()
     }
 
-    getCoordinates = (pos) => {
-        navigator.geolocation.getCurrentPosition(success)
-        function success(pos) {
-            var crd = pos.coords;
-          
-            console.log('Your current position is:');
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-            console.log(`More or less ${crd.accuracy} meters.`);
-          };
+    getStores = () => {
+        getPosition()
+        .then((position) => {
+            console.log(position.coords.longitude)
+            const long = position.coords.longitude
+            const lat = position.coords.latitude
+            axios.get(`/api/gmap?long=${long}&lat=${lat}`)
+            .then(res => console.log(res))
+        })
+        
     }
 
 
-    // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
 
 
 
     componentWillMount = () => {
       this.getGroceryList()
-      this.getCoordinates()
+    //   this.getStores()
     }
     
 

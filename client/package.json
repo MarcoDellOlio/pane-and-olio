@@ -6,7 +6,9 @@
   "dependencies": {
     "auth0-js": "^9.2.3",
     "axios": "^0.17.1",
+    "axios-jsonp-pro": "^1.1.1",
     "dotenv": "^5.0.0",
+    "jsonp": "^0.2.1",
     "react": "^16.2.0",
     "react-burger-menu": "^2.2.3",
     "react-dom": "^16.2.0",

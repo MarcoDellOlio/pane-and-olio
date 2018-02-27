@@ -3,6 +3,7 @@ import {Wrapper, Img} from './BasicComponents'
 import RecipeCardList from './RecipeCardList'
 import styled from 'styled-components';
 import axios from 'axios'
+import GoSearch from 'react-icons/lib/go/search'
 import _ from 'lodash'
 
 class Home extends Component {
@@ -50,15 +51,17 @@ class Home extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     return (
-      <Wrapper>
+      <HomeWrapper>
         
         <SplashImage>
-          <input onChange={ _.debounce(this.handlChange, 1000, {
+          <SearchBar>
+          <SearchField onChange={ _.debounce(this.handlChange, 1000, {
                             'leading': true,
                             'trailing': false
                             })} 
             name="searchWord"/>
-          <button>search</button>
+          <div><GoSearch/></div>
+          </SearchBar>
           <Img  src="https://images.unsplash.com/photo-1495195134817-aeb325a55b65?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1bdd3a5305d7913b82929130ae81fef6&auto=format&fit=crop&w=1355&q=80" alt=""/>
         </SplashImage>
 
@@ -69,15 +72,34 @@ class Home extends Component {
         {!isAuthenticated()}
 
 
-      </Wrapper>
+      </HomeWrapper>
     );
   }
 }
 
 export default Home;
 
-const SplashImage = styled.div`
-    width : 100%;
-    height : 30%;
-    margin : 3%;
+const HomeWrapper = Wrapper.extend`
+  padding-top: 18%;
 `
+
+const SearchBar = Wrapper.extend`
+  flex-direction : row;
+  height : auto;
+  width : 200px;
+  position : absolute;
+  top : 25%;
+  left : 25%;
+`
+const SearchField = styled.input`
+  width : 100%;
+  height : 20px;
+  border-radius : 5px;
+  background-color : ghostwhite;
+ `
+
+const SplashImage = styled.div`
+  width : 100%;
+  height : 30%;
+`
+

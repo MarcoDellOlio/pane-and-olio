@@ -10,7 +10,8 @@ class RecipeCardList extends Component {
 
     render() {
 
-      const list = this.props.recipes
+      // const list = this.props.recipes
+      const list = recipeslist
     
       const recipes = list.map((recipe) => {
         return ( <RecipeCard key={recipe.id} {...recipe}/>)

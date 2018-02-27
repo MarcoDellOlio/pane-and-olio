@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import {Navbar} from './BasicComponents'
+import {Img} from './BasicComponents'
 import styled from 'styled-components';
+import { slide as Menu } from 'react-burger-menu'
+import logo from './olive-oil.png'
+
 
 class NavbarComponent extends Component {
+
+  showSettings (event) {
+    event.preventDefault();
+    
+  }
 
   login() {
     this.props.auth.login();
@@ -25,25 +33,26 @@ class NavbarComponent extends Component {
 
     return (
 
-      <Navbar>
-        
-            <div> <Link to='/home'>Home</Link> </div>
-            
-            {
-              !isAuthenticated()? 
-              <LoginInfo>
-                <button onClick={this.login.bind(this)}> Log In </button>
-              </LoginInfo>  
-            :
-              <LoginInfo>
-                <button onClick={this.logout.bind(this)}> Log Out </button>
-                <div> Hi {name}</div>
-                <div> <Link to='/cookbook'>Cookbook</Link> </div>
-                <div><Link to='/groceryList'>Grocery List</Link></div>
-              </LoginInfo> 
-            }
-            
+     
 
+      <Navbar>
+
+            <HomeLogo> <Link to='/home'><Logo src={logo} alt=""/></Link> </HomeLogo>
+              {!isAuthenticated()? 
+              <LoginInfo/>
+            :
+            <LoginInfo>
+              <div> Hi {name}</div>
+              <div> <Link to='/cookbook'>Cookbook</Link> </div>
+              <div><Link to='/groceryList'>Grocery List</Link></div>
+            </LoginInfo>
+              }
+            <LogIn>
+              {!isAuthenticated()? 
+              <div onClick={this.login.bind(this)}>Log In</div> : 
+              <div onClick={this.logout.bind(this)}>Log Out</div>
+              }
+            </LogIn>
          
       </Navbar>
     );
@@ -52,9 +61,33 @@ class NavbarComponent extends Component {
 
 export default NavbarComponent;
 
+export const Navbar = styled.div`
+    width : 96%;
+    height : 10%;
+    display : flex;
+    align-items : center;
+    padding : 0 2%;
+    font-size : 2vh;
+    background-color : ghostwhite;
+    position : fixed;
+`
+
 const LoginInfo = styled.div`
   height : 100%;
-  width :auto;
+  width : 70%;
   display : flex;
+  justify-content : space-around;
   align-items : center;
+`
+
+const HomeLogo = styled.div`
+  width : 35px;
+`
+
+const LogIn = styled.div`
+width : 15%;
+text-align : right;
+`
+const Logo = styled.img`
+  width : 70%
 `

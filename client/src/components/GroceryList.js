@@ -74,7 +74,7 @@ class GroceryList extends Component {
 
     componentWillMount = () => {
       this.getGroceryList()
-    //   this.getStores()
+      this.getStores()
     }
     
 

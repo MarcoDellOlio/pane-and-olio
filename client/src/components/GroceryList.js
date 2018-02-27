@@ -14,7 +14,8 @@ class GroceryList extends Component {
     state = {
         groceryList : [],
         phoneNumber : "",
-        emailAddress : ""
+        emailAddress : "",
+        groceryStores : []
       }
 
     getGroceryList = () => {
@@ -39,7 +40,7 @@ class GroceryList extends Component {
     }
 
     sendSms = (event) => {
-        axios.post(`/api/sms/${this.state.phoneNumber}`, this.state.groceryList)
+        axios.post(`/api/sms/${this.state.phoneNumber}`, this.state)
             .then(res => {
                 console.log(res)
             })
@@ -62,10 +63,15 @@ class GroceryList extends Component {
             console.log(position.coords.longitude)
             const long = position.coords.longitude
             const lat = position.coords.latitude
-            axios.get(`/api/gmap?long=${long}&lat=${lat}`)
-            .then(res => console.log(res))
+            return axios.get(`/api/gmap?long=${long}&lat=${lat}`)
         })
-        
+        .then((res) => {
+            const groceryStores = res.data.map(store => {
+                return {name : store.name, vicinity : store.vicinity}
+            })
+            this.setState({groceryStores})
+        })
+        .catch((error) => { console.log(error) })
     }
 
 
@@ -79,6 +85,12 @@ class GroceryList extends Component {
     
 
     render() {
+
+        const groceryStores = this.state.groceryStores.map((store) => {
+            return (
+                <div>{store.name} - {store.vicinity}</div>
+            )
+        })
         
           
         const groceryList = this.state.groceryList.map((product) => {
@@ -100,6 +112,11 @@ class GroceryList extends Component {
                 <div>Send by Email</div>
                 <input name="emailAddress" onChange={this.handlChange}/>
                 <button onClick={this.sendEmail}>Send</button>
+
+                <Wrapper>
+                    {groceryStores}
+                </Wrapper>
+
             </Wrapper>
         )
     }

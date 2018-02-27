@@ -40,7 +40,6 @@ class NavbarComponent extends Component {
                 <div> Hi {name}</div>
                 <div> <Link to='/cookbook'>Cookbook</Link> </div>
                 <div><Link to='/groceryList'>Grocery List</Link></div>
-                
               </LoginInfo> 
             }
             

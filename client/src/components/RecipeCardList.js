@@ -5,28 +5,14 @@ import RecipeCard from './RecipeCard'
 
 class RecipeCardList extends Component {
 
-    state = {
-      recipes : recipeslist
-    }
-
-    getRecipes = () => {
-        axios({
-            method: 'get',
-            url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=10',
-            headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
-          })
-        .then((res) => { this.setState({recipes : res.data.recipes}) })
-    }
-  
-    
-    componentWillMount() {
-      // this.getRecipes();
-    }
+   
     
 
     render() {
 
-      const recipes = this.state.recipes.map((recipe) => {
+      const list = this.props.recipes
+    
+      const recipes = list.map((recipe) => {
         return ( <RecipeCard key={recipe.id} {...recipe}/>)
       })
 

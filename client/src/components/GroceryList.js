@@ -54,14 +54,32 @@ class GroceryList extends Component {
         event.preventDefault()
     }
 
+    getCoordinates = (pos) => {
+        navigator.geolocation.getCurrentPosition(success)
+        function success(pos) {
+            var crd = pos.coords;
+          
+            console.log('Your current position is:');
+            console.log(`Latitude : ${crd.latitude}`);
+            console.log(`Longitude: ${crd.longitude}`);
+            console.log(`More or less ${crd.accuracy} meters.`);
+          };
+    }
+
+
+    // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
+
+
 
     componentWillMount = () => {
       this.getGroceryList()
+      this.getCoordinates()
     }
     
 
     render() {
-
+        
+          
         const groceryList = this.state.groceryList.map((product) => {
             return (
                 <GroceryItem key={product._id} {...product} removeItem={this.removeItem}/>

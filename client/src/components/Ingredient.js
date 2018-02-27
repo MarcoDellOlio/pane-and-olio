@@ -9,7 +9,8 @@ import axios from 'axios'
 class Ingredient extends Component {
 
     state = {
-        ingredient : {}
+        ingredient : {},
+        substitutes : []
     }
 
     isPresent = (trueOrFalse) => {
@@ -24,7 +25,6 @@ class Ingredient extends Component {
         axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
         .then(res => {
             this.setState({ingredient : res.data.ingredient})
-            console.log(res)
         })
         .catch((error) => { console.log(error) })
     }
@@ -46,34 +46,60 @@ class Ingredient extends Component {
        .catch((error) => { console.log(error) })
     }
 
-    
-    componentWillMount() {
-        
+    getSubstitutes = () => {
+        const isPresent = this.state.ingredient.present
+        const ingredientId = this.state.ingredient.ingredientId
+        if (isPresent === false) {
+            axios({
+                method: 'get',
+                url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/ingredients/${ingredientId}/substitutes`,
+                headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
+              })
+            .then(res => this.setState({substitutes : res.data.substitutes}))
+        }
     }
     
 
 
-    
-
     render() {
-
+        this.getSubstitutes() 
         const ingredient = this.props
         const present = this.state.ingredient.present
 
-        return (
-           <IngredientWrapper present={present} >
-                <div>{ingredient.originalString} </div>
-                <CheckButton onClick={() => this.isPresent(true)} >ok</CheckButton>
-                <CheckButton onClick={() => this.isPresent(false)} >no</CheckButton>
-                <div onClick={() => this.addToGroceryList()}>buy</div>
-           </IngredientWrapper>
+        const substitutes = this.state.substitutes.map((ingredient, index) => {
+            return (
+                <div key={index}>{ingredient}</div>
+            )
+        })
 
+        return (
+            <OuterWrapper>
+                <IngredientWrapper present={present} >
+                        <div>{ingredient.originalString} </div>
+                        <CheckButton onClick={() => this.isPresent(true)} >ok</CheckButton>
+                        <CheckButton onClick={() => this.isPresent(false)} >no</CheckButton>
+                        <div onClick={() => this.addToGroceryList()}>buy</div>
+                </IngredientWrapper>       
+                
+                        {present === false?
+                        <SubstitutesContainer>
+                            {substitutes}
+                        </SubstitutesContainer>
+                        :
+                            null
+                        }
+                    
+                
+           </OuterWrapper>
 
         )
     }
   }
   
   export default Ingredient;
+
+  const OuterWrapper = Wrapper.extend`
+  `
 
   const IngredientWrapper = Wrapper.extend`
    flex-direction : row;
@@ -87,4 +113,8 @@ class Ingredient extends Component {
 
   const CheckButton = styled.div`
   
+  `
+
+  const SubstitutesContainer = Wrapper.extend`
+   text-align : left
   `

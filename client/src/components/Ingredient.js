@@ -3,7 +3,7 @@ import {Wrapper} from './BasicComponents'
 import styled from 'styled-components'
 import axios from 'axios'
 import FaCheck from 'react-icons/lib/fa/check'
-import GoX from 'react-icons/lib/go/x'
+import FaQuestion from 'react-icons/lib/fa/question'
 import FaCartPlus from 'react-icons/lib/fa/cart-plus'
 
 
@@ -59,7 +59,12 @@ class Ingredient extends Component {
                 url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/ingredients/${ingredientId}/substitutes`,
                 headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
               })
-            .then(res => this.setState({substitutes : res.data.substitutes}))
+            .then(res => {
+                if (res.data.substitutes) {
+                    this.setState({substitutes : res.data.substitutes}) 
+                }
+                else {this.setState({substitutes : ["There are no substitutes for this ingredient"]})}   
+            })
         }
     }
     
@@ -70,9 +75,9 @@ class Ingredient extends Component {
         const ingredient = this.props
         const present = this.state.ingredient.present
 
-        const substitutes = this.state.substitutes.map((ingredient, index) => {
+        const substitutes = this.state.substitutes.map((substitute, index) => {
             return (
-                <div key={index}>{ingredient}</div>
+                <Substitute key={index}>{substitute}</Substitute>
             )
         })
 
@@ -81,7 +86,7 @@ class Ingredient extends Component {
                 <IngredientWrapper >
                     <CheckButtonYes onClick={() => this.isPresent(true)} present={present}><FaCheck/></CheckButtonYes>
                         <IngredientName>{ingredient.originalString} </IngredientName>
-                    <CheckButtonNo onClick={() => this.isPresent(false)} present={present}><GoX/></CheckButtonNo>
+                    <CheckButtonNo onClick={() => this.isPresent(false)} present={present}><FaQuestion/></CheckButtonNo>
                         <CheckButton onClick={() => this.addToGroceryList()}><FaCartPlus/></CheckButton>
                 </IngredientWrapper>       
                 
@@ -131,8 +136,6 @@ class Ingredient extends Component {
     else if (props.present === false) {null}
     else {return "green"}
     }};
-  width : 10%;
-  font-size : 3vh;
  `
  const CheckButtonNo = CheckButton.extend`
  color : ${props => {
@@ -140,10 +143,14 @@ class Ingredient extends Component {
     else if (props.present === false) {return "red"}
     else {null}
     }} ;
- width : 10%;
- font-size : 3vh;
 `
-
   const SubstitutesContainer = Wrapper.extend`
-   text-align : left
+  `
+
+  const Substitute = styled.div`
+    text-align : center;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 4px;
+    width : 100%;
   `

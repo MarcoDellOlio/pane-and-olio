@@ -97,6 +97,7 @@ class RecipePage extends Component {
     font-style : bold;
     margin : 3vh 0;
     height : 10%;
+    text-align : center
   `
 
 const RecipeWrapper = Wrapper.extend`

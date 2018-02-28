@@ -38,7 +38,7 @@ class App extends Component {
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/profile" render={(props) => (!auth.isAuthenticated() ? (<Redirect to="/home"/>) : (<ProfilePage auth={auth} {...props} />))}/>
           <Route exact path="/cookbook" render={(props) => (!auth.isAuthenticated() ? <Redirect to="/home"/> : <Cookbook/>)}/>
-          <Route exact path="/recipes/:recipeId" render={(props) => (!auth.isAuthenticated() ? <Redirect to="/home"/> : <RecipePage {...props}/>)}/>
+          <Route exact path="/recipes/:recipeId" render={(props) => (<RecipePage {...props}/>)}/>
           <Route exact path="/groceryList" render={(props) => (!auth.isAuthenticated() ? (<Redirect to="/home"/>) : (<GroceryList />))}/>
         </Switch>
           <Route exact path="/callback" render={(props) => {handleAuthentication(props); return <CallbackComponent {...props} /> }}/>

@@ -52,7 +52,6 @@ class RecipeList extends Component {
   export default RecipeList;
 
   const RecipeListContainer = Wrapper.extend`
-
-  border : solid 1px black
-  
+    padding : 5%;
+    width : 90%;
 `

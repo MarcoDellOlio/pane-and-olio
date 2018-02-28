@@ -14,14 +14,13 @@ class Cookbook extends Component {
         null
         
         return (
-            <Wrapper>
+            <CookbookWrapper>
 
-              <div>{name}'s Cookbook </div>
 
               <CookBookRecipeList/>
 
                 
-            </Wrapper>
+            </CookbookWrapper>
 
         )
     }
@@ -29,4 +28,6 @@ class Cookbook extends Component {
   
   export default Cookbook;
 
-  
+  const CookbookWrapper = Wrapper.extend`
+    padding-top : 10vh;
+  `

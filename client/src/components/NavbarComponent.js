@@ -63,7 +63,7 @@ export default NavbarComponent;
 
 export const Navbar = styled.div`
     width : 96%;
-    height : 10%;
+    height : 10vh;
     display : flex;
     align-items : center;
     padding : 0 2%;

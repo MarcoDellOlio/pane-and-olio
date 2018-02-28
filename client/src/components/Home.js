@@ -62,7 +62,6 @@ class Home extends Component {
             name="searchWord"/>
           <div><GoSearch/></div>
           </SearchBar>
-          <Img  src="https://images.unsplash.com/photo-1495195134817-aeb325a55b65?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1bdd3a5305d7913b82929130ae81fef6&auto=format&fit=crop&w=1355&q=80" alt=""/>
         </SplashImage>
 
         <RecipeCardList recipes={this.state.recipes}/>
@@ -80,7 +79,7 @@ class Home extends Component {
 export default Home;
 
 const HomeWrapper = Wrapper.extend`
-  padding-top: 10%;
+  padding-top: 10vh;
   margin-bottom : 3%;
 `
 
@@ -88,9 +87,6 @@ const SearchBar = Wrapper.extend`
   flex-direction : row;
   height : auto;
   width : 200px;
-  position : absolute;
-  top : 25%;
-  left : 25%;
 `
 const SearchField = styled.input`
   width : 100%;
@@ -101,6 +97,13 @@ const SearchField = styled.input`
 
 const SplashImage = styled.div`
   width : 100%;
-  height : 30%;
+  height : 50vh;
+  display : flex;
+  justify-content : center;
+  align-items : center;
+  background-image: url("https://images.unsplash.com/photo-1495195134817-aeb325a55b65?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1bdd3a5305d7913b82929130ae81fef6&auto=format&fit=crop&w=1355&q=80");
+  background-size:     cover;              
+  background-repeat:   no-repeat;
+  background-position: center center;
 `
 

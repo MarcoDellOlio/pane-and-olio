@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { Img} from './BasicComponents'
 import styled from 'styled-components'
 import axios from 'axios'
+import FaStarO from 'react-icons/lib/fa/star-o'
+import glutenfree from './gluten-free.png'
+import salad from './salad.png'
+import broccoli from './broccoli.png'
+import nomilk from './nomilk.png'
+import FaClockO from 'react-icons/lib/fa/clock-o'
 
 
 
@@ -23,15 +29,27 @@ class RecipeCard extends Component {
     render() {
         const recipe = this.props
         const loggedIn = localStorage.id_token
+        const recipeUrl = `recipes/${recipe.id}`
+        console.log(this.props.glutenFree)
         return (
             <CardContainer>
-                <UpperBand>           
-                  <div>{recipe.title}</div>
-                  {loggedIn? <div onClick={this.saveRecipe}>save</div> : null }
-                </UpperBand>
                 <RecipeImage> 
-                     <Img  src={recipe.image} alt=""/>
+                     <CardImg  src={recipe.image} alt=""/>
                  </RecipeImage>
+                 <UpperBand>
+                    <LogoBarOut>
+                      <LogoBar>
+                        {this.props.glutenFree? <MiniLogo src={glutenfree} alt=""/> : null}
+                        {this.props.vegetarian? <MiniLogo src={salad} alt=""/> : null}
+                        {this.props.vegan? <MiniLogo src={broccoli} alt=""/> : null}
+                        {this.props.dairyFree? <MiniLogo src={nomilk} alt=""/> : null}
+                      </LogoBar>
+                      <Time><FaClockO/>{this.props.preparationMinutes}'</Time>  
+                    </LogoBarOut>                       
+                  <RecipeTitle>{recipe.title}</RecipeTitle>
+                  {/* {loggedIn? <Save onClick={this.saveRecipe}><FaStarO /></Save> : null } */}
+                </UpperBand>
+                 
             </CardContainer>
 
         )
@@ -42,23 +60,60 @@ class RecipeCard extends Component {
 
   const CardContainer = styled.div`
     width : 48%;
-    height : 30%;
     display : flex;
     flex-direction : column;
     background-color : ghostwhite;
-    border-radius: 2px
-    background-color: #f6f7f9;
-    border-bottom: 1px solid #dddfe2;
+    font-size : 2vh;
+    margin-top: 3%;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 4px;
   `
 
   const UpperBand = styled.div`
     width : 100%;
-    height : auto;
+    height : 20%;
     display : flex;
+    flex-direction : column;
     align-items : center;
   `
 
   const RecipeImage = styled.div`
     width : 100%;
     height : auto;
+    border-radius : 10px;
   `
+  const RecipeTitle = styled.div`
+    min-height: 30px;
+  `
+
+  const Save = styled.div`
+    text-align : center;
+    width: auto;
+    font-size: 2vh;
+  `
+
+  const CardImg = Img.extend`
+    border-top-left-radius : 4px;
+    border-top-right-radius : 4px;
+
+  `
+  const LogoBar = styled.div`
+    min-height : 20px;
+    width : 80%;
+    display : flex;
+  `
+  const LogoBarOut = LogoBar.extend`
+    width : 100%;
+  `
+
+  const MiniLogo = styled.img`
+    width : 20px;
+    height : 20px;
+    margin : 0 2%;
+  `
+  const Time = styled.div`
+    font-size : 2vh;
+    width : 20%;
+  `
+

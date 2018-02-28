@@ -70,6 +70,7 @@ export const Navbar = styled.div`
     font-size : 2vh;
     background-color : ghostwhite;
     position : fixed;
+    z-index : 999;
 `
 
 const LoginInfo = styled.div`

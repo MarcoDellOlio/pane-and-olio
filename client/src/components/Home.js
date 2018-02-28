@@ -80,7 +80,8 @@ class Home extends Component {
 export default Home;
 
 const HomeWrapper = Wrapper.extend`
-  padding-top: 18%;
+  padding-top: 10%;
+  margin-bottom : 3%;
 `
 
 const SearchBar = Wrapper.extend`

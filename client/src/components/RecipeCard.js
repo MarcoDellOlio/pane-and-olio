@@ -8,6 +8,8 @@ import salad from './salad.png'
 import broccoli from './broccoli.png'
 import nomilk from './nomilk.png'
 import FaClockO from 'react-icons/lib/fa/clock-o'
+import { Link } from 'react-router-dom'
+
 
 
 
@@ -32,7 +34,10 @@ class RecipeCard extends Component {
         const recipeUrl = `recipes/${recipe.id}`
         console.log(this.props.glutenFree)
         return (
-            <CardContainer>
+          
+          
+            <CardContainer >
+              <Link to={recipeUrl}>
                 <RecipeImage> 
                      <CardImg  src={recipe.image} alt=""/>
                  </RecipeImage>
@@ -49,9 +54,9 @@ class RecipeCard extends Component {
                   <RecipeTitle>{recipe.title}</RecipeTitle>
                   {/* {loggedIn? <Save onClick={this.saveRecipe}><FaStarO /></Save> : null } */}
                 </UpperBand>
-                 
+                </Link>
             </CardContainer>
-
+          
         )
     }
   }

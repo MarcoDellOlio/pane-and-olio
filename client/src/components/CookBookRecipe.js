@@ -30,14 +30,13 @@ class CookbookRecipe extends Component {
                 <RecipeBar>
                     <RecipeTitle onClick={() => this.selectRecipe()}>{recipe.title}</RecipeTitle>
                  
-                    <Kitchen>  <FaArrowRight/> </Kitchen>     
+                    <Kitchen><Link to={recipeUrl}><FaArrowRight/></Link></Kitchen>     
                 </RecipeBar>
                 {
                         !this.state.selected? null :
                         
                         <div>
                             <Img src={recipe.image} alt=""/>
-                            {/* <RecipeLink><Link to={recipeUrl}>Recipe</Link></RecipeLink> */}
                         </div>
                     }
                 
@@ -89,5 +88,5 @@ class CookbookRecipe extends Component {
     justify-content : center;
     font-size : 2vh;
     color : #e0300d;
-    
+    height : 100%;
   `

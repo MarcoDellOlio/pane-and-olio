@@ -24,11 +24,16 @@ class IngredientsView extends Component {
         }
 
         return (
-           <Wrapper>
+           <IngredientWrapper>
                {ingredientsList()}
-           </Wrapper>
+           </IngredientWrapper>
         )
     }
   }
   
   export default IngredientsView;
+
+  const IngredientWrapper = Wrapper.extend`
+    padding : 2vh 0;
+    height : auto;
+  `

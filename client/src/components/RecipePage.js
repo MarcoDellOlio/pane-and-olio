@@ -3,6 +3,7 @@ import {Wrapper} from './BasicComponents'
 import IngredientsView from './IngredientsView'
 import PreparationView from './PreparationView'
 import axios from 'axios'
+import styled from 'styled-components'
 
 
 
@@ -62,38 +63,53 @@ class RecipePage extends Component {
 
         return (
             
-            <Wrapper>
+            <RecipeWrapper>
+                <RecipeCardContainer>
+                    <RecipeTitle>{recipe.title}</RecipeTitle>
 
-                <div>{recipe.title}</div>
-
-                <RecipeContent>
-                    <RecipeMenu>
-                        <div onClick={() => this.showIngredients()}>Ingredients</div>
-                        <div onClick={() => this.showPreparation()}>Preparation</div>
-                    </RecipeMenu>
-                    {
-                        this.state.ingredientsOrPreparation === "ingredients"?
-                        <IngredientsView ingredients={ingredients} recipeId={savedRecipeId}/>
-                        :
-                        <PreparationView instructions={instructions} recipeId={savedRecipeId}/>
-                    }
-                    
-
-                </RecipeContent>
-
-            </Wrapper>
+                    <RecipeContent>
+                        <RecipeMenu>
+                            <div onClick={() => this.showIngredients()}>Ingredients</div>
+                            <div onClick={() => this.showPreparation()}>Preparation</div>
+                        </RecipeMenu>
+                        {
+                            this.state.ingredientsOrPreparation === "ingredients"?
+                            <IngredientsView ingredients={ingredients} recipeId={savedRecipeId}/>
+                            :
+                            <PreparationView instructions={instructions} recipeId={savedRecipeId}/>
+                        }
+                    </RecipeContent>
+                </RecipeCardContainer>
+            </RecipeWrapper>
         )
     }
   }
   
   export default RecipePage;
 
+  const RecipeCardContainer = Wrapper.extend`
+    height : auto;
+    width : 95%;
+  `
+
+  const RecipeTitle = styled.div`
+    font-size : 3vh;
+    font-style : bold;
+    margin : 3vh 0;
+    height : 10%;
+  `
+
+const RecipeWrapper = Wrapper.extend`
+    padding-top : 10vh;
+    height : auto;
+`
+
  const RecipeContent = Wrapper.extend`
   width : 90%;
-  height : auto;
  `
 
  const RecipeMenu = Wrapper.extend`
   flex-direction : row;
   justify-content : space-around;
 `
+  

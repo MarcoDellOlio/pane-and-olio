@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import {Wrapper} from './BasicComponents'
 import styled from 'styled-components'
 import axios from 'axios'
+import FaCheck from 'react-icons/lib/fa/check'
+import GoX from 'react-icons/lib/go/x'
+import FaCartPlus from 'react-icons/lib/fa/cart-plus'
+
 
 
 
@@ -74,11 +78,11 @@ class Ingredient extends Component {
 
         return (
             <OuterWrapper>
-                <IngredientWrapper present={present} >
-                        <div>{ingredient.originalString} </div>
-                        <CheckButton onClick={() => this.isPresent(true)} >ok</CheckButton>
-                        <CheckButton onClick={() => this.isPresent(false)} >no</CheckButton>
-                        <div onClick={() => this.addToGroceryList()}>buy</div>
+                <IngredientWrapper >
+                    <CheckButtonYes onClick={() => this.isPresent(true)} present={present}><FaCheck/></CheckButtonYes>
+                        <IngredientName>{ingredient.originalString} </IngredientName>
+                    <CheckButtonNo onClick={() => this.isPresent(false)} present={present}><GoX/></CheckButtonNo>
+                        <CheckButton onClick={() => this.addToGroceryList()}><FaCartPlus/></CheckButton>
                 </IngredientWrapper>       
                 
                         {present === false?
@@ -88,9 +92,8 @@ class Ingredient extends Component {
                         :
                             null
                         }
-                    
-                
-           </OuterWrapper>
+                        
+            </OuterWrapper>
 
         )
     }
@@ -99,21 +102,47 @@ class Ingredient extends Component {
   export default Ingredient;
 
   const OuterWrapper = Wrapper.extend`
+    
   `
 
   const IngredientWrapper = Wrapper.extend`
    flex-direction : row;
-   background-color : ${props => {
-       if (props.present === undefined) {return "grey"}
-       else if (props.present === false) {return "red"}
-       else {return "green"}
-   }};
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 4px;
+    margin : 1%;
+    min-height : 5vh;
+    text-align : center;
+    background-color : ghostwhite;
+  `
+
+  const IngredientName = Wrapper.extend`
+   width : 70%;
   `
 
 
-  const CheckButton = styled.div`
-  
+  const CheckButton = Wrapper.extend`
+   width : 10%;
+   font-size : 3vh;
   `
+  const CheckButtonYes = CheckButton.extend`
+  color : ${props => {
+    if (props.present === undefined) {null}
+    else if (props.present === false) {null}
+    else {return "green"}
+    }};
+  width : 10%;
+  font-size : 3vh;
+ `
+ const CheckButtonNo = CheckButton.extend`
+ color : ${props => {
+    if (props.present === undefined) {null}
+    else if (props.present === false) {return "red"}
+    else {null}
+    }} ;
+ width : 10%;
+ font-size : 3vh;
+`
 
   const SubstitutesContainer = Wrapper.extend`
    text-align : left

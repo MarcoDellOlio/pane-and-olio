@@ -18,6 +18,15 @@ const User = require('../db/models/userModel')
             .catch((error) => { console.log(error) })
     })
 
+    router.get('/:recipeId', (req, res) => {
+        User.findById(req.params.userId)
+            .then((user) => {
+               return user.recipes.id(req.params.recipeId)
+            })
+            .then((recipe) => {res.json(recipe)})
+            .catch((error) => { console.log(error) })
+    })
+
     router.post('/:recipeId', (req, res) => {
         User.findById(req.params.userId)
             .then((user) => {

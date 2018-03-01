@@ -17,6 +17,18 @@ class Ingredient extends Component {
         substitutes : []
     }
 
+    resumeRecipe = () => {
+        const recipeId = this.props.recipeId
+        const userId = localStorage.userId
+        const ingredientId = this.props.id
+        axios.get(`/api/users/${userId}/recipes/${recipeId}`)
+        .then(res => {
+            const ingredientsList = res.data.ingredientsList
+            const correctIngredient = ingredientsList.filter(ingredient => {return parseInt(ingredient.ingredientId) === ingredientId})
+            this.isPresent(correctIngredient[0].present)
+        })
+    }
+
     isPresent = (trueOrFalse) => {
         const recipeId = this.props.recipeId
         const userId = localStorage.userId
@@ -79,7 +91,11 @@ class Ingredient extends Component {
         }
     }
     
-
+    
+    componentWillMount() {
+        this.resumeRecipe()
+    }
+    
 
     render() {
         this.getSubstitutes() 

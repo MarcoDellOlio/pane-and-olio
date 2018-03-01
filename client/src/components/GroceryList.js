@@ -21,8 +21,8 @@ class GroceryList extends Component {
     getGroceryList = () => {
         const userId = localStorage.userId
 
-        axios.get(`/api/users/${userId}/grocerylist`).
-        then(groceryList => 
+        axios.get(`/api/users/${userId}/grocerylist`)
+        .then(groceryList => 
             this.setState({groceryList : groceryList.data.groceryList} )
         )
         .catch((error) => { console.log(error) })

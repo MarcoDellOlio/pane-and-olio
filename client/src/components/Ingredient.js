@@ -5,7 +5,7 @@ import axios from 'axios'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaQuestion from 'react-icons/lib/fa/question'
 import FaCartPlus from 'react-icons/lib/fa/cart-plus'
-
+import { withAlert } from 'react-alert'
 
 
 
@@ -42,12 +42,23 @@ class Ingredient extends Component {
             ingredientId: this.props.id,
             inCart : true
         }
-       axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
-       .then(res => { 
-        return axios.post(`/api/users/${userId}/grocerylist` , res.data.ingredient)
-       })
-       .then(res => console.log(res))
-       .catch((error) => { console.log(error) })
+        axios.get(`/api/users/${userId}/grocerylist`)
+        .then(res => {
+            return res.data.groceryList.some(product => {return product.name === ingredient.name})
+        })
+        .then(isInList => {
+                if (isInList) {
+                    this.props.alert.error('Product already in list')
+                    return axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)   
+                }
+                else {
+                    this.props.alert.success('Product added in the cart')
+                    return axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
+                }
+            })
+        .then(res => {return axios.post(`/api/users/${userId}/grocerylist` , res.data.ingredient)})
+        .then(res => {console.log(res)})
+        .catch((error) => { console.log(error) })
     }
 
     getSubstitutes = () => {
@@ -104,7 +115,7 @@ class Ingredient extends Component {
     }
   }
   
-  export default Ingredient;
+  export default withAlert(Ingredient);
 
   const OuterWrapper = Wrapper.extend`
     

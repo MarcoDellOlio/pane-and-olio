@@ -9,7 +9,8 @@ router.post('/', (req, res) => {
                 return parseInt(ingredient.ingredientId) === req.body.ingredientId
             })
                 if (isIngredientInDB !== -1) {
-                    user.ingredientsList.splice(isRecipeInDB,1,req.body)
+                    console.log(user.groceryList)
+                    user.groceryList.splice(isIngredientInDB,1,req.body)
                 }
                 else {
                     user.groceryList.push(req.body)

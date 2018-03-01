@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     const lat = req.query.lat
     const long = req.query.long
            
-    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=1000&types=grocery_or_supermarket&key=${process.env.GOOGLE_API_KEY}`)
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&rankBy=5000&types=grocery_or_supermarket&key=${process.env.GOOGLE_API_KEY}`)
     .then(data => res.json(data.data.results))
 })
 

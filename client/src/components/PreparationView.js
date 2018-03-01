@@ -14,7 +14,7 @@ class PreparationView extends Component {
                return this.props.instructions[0].steps.map((step, index) => {
                 return (
                     <StepWrapper key={index}>
-                        <div>{step.step} </div>
+                        <Step>{step.step} </Step>
                     </StepWrapper>
                 )
             })
@@ -51,3 +51,7 @@ class PreparationView extends Component {
    text-align : center;
    background-color : ghostwhite;
  `
+
+const Step = Wrapper.extend`
+  padding 1% 0;
+`

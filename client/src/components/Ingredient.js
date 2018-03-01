@@ -24,8 +24,13 @@ class Ingredient extends Component {
         axios.get(`/api/users/${userId}/recipes/${recipeId}`)
         .then(res => {
             const ingredientsList = res.data.ingredientsList
+            if (!!ingredientsList) {
+            console.log(ingredientsList)
             const correctIngredient = ingredientsList.filter(ingredient => {return parseInt(ingredient.ingredientId) === ingredientId})
-            this.isPresent(correctIngredient[0].present)
+                if (!!correctIngredient[0]) {
+                    this.isPresent(correctIngredient[0].present)
+                }
+            }
         })
     }
 
@@ -38,11 +43,18 @@ class Ingredient extends Component {
             ingredientId: this.props.id,
             present : trueOrFalse
         }
-        axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
-        .then(res => {
-            this.setState({ingredient : res.data.ingredient})
-        })
-        .catch((error) => { console.log(error) })
+
+        if(!!recipeId) {
+            axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
+            .then(res => {
+                this.setState({ingredient : res.data.ingredient})
+            })
+            .catch((error) => { console.log(error) })
+        }
+
+        else {this.setState({ ingredient : ingredient})}
+
+        
     }
 
     addToGroceryList = () => {
@@ -190,4 +202,5 @@ class Ingredient extends Component {
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     border-radius: 4px;
     width : 100%;
+    margin : 0.4% 0;
   `

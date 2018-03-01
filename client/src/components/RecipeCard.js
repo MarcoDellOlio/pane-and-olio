@@ -32,7 +32,6 @@ class RecipeCard extends Component {
         const recipe = this.props
         const loggedIn = localStorage.id_token
         const recipeUrl = `recipes/${recipe.id}`
-        console.log(this.props.glutenFree)
         return (
           
           
@@ -65,6 +64,7 @@ class RecipeCard extends Component {
 
   const CardContainer = styled.div`
     width : 48%;
+    max-width : 180px;
     display : flex;
     flex-direction : column;
     background-color : ghostwhite;

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Wrapper} from './BasicComponents'
 import GroceryItem from './GroceryItem'
 import axios from 'axios'
+import styled from 'styled-components'
+
 
 const getPosition = function (options) {
     return new Promise(function (resolve, reject) {
@@ -22,9 +24,13 @@ class GroceryList extends Component {
         const userId = localStorage.userId
 
         axios.get(`/api/users/${userId}/grocerylist`)
-        .then(groceryList => 
-            this.setState({groceryList : groceryList.data.groceryList} )
+        .then(groceryList => {
+            const stores = groceryList.data.groceryList.filter((store, index) =>
+            {return index < 3 }
         )
+            console.log(stores)
+            this.setState({groceryList : groceryList.data.groceryList} )
+        })
         .catch((error) => { console.log(error) })
     }
 
@@ -86,9 +92,12 @@ class GroceryList extends Component {
 
     render() {
 
-        const groceryStores = this.state.groceryStores.map((store) => {
+        const groceryStores = this.state.groceryStores.map((store, index) => {
             return (
-                <div>{store.name} - {store.vicinity}</div>
+                <div key={index}>
+                    <div>{store.name}</div>
+                     <div>{store.vicinity}</div>
+                </div>
             )
         })
         
@@ -101,9 +110,11 @@ class GroceryList extends Component {
 
         return (
 
-            <Wrapper>
-                <div>Grocery List</div>
-                {groceryList}
+            <GroceryListWrapper>
+                <GroceryContainer>
+                    {groceryList}
+                </GroceryContainer>
+                
 
                 <div>Send by SMS</div>
                 <input name="phoneNumber" onChange={this.handlChange}/>
@@ -117,9 +128,24 @@ class GroceryList extends Component {
                     {groceryStores}
                 </Wrapper>
 
-            </Wrapper>
+            </GroceryListWrapper>
         )
     }
   }
   
   export default GroceryList;
+
+  const GroceryListWrapper = Wrapper.extend`
+    padding-top : 10vh;
+
+  `
+
+  const GroceryContainer = Wrapper.extend`
+    margin : 5% 0;
+    width : 90%;
+    background-color : ghostwhite;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 4px;
+    height: auto;
+  `

@@ -41,19 +41,21 @@ class RecipeCard extends Component {
                      <CardImg  src={recipe.image} alt=""/>
                  </RecipeImage>
                  <UpperBand>
+                    <RecipeTitle>{recipe.title}</RecipeTitle>
                     <LogoBarOut>
                       <LogoBar>
-                        {this.props.glutenFree? <MiniLogo src={glutenfree} alt=""/> : null}
-                        {this.props.vegetarian? <MiniLogo src={salad} alt=""/> : null}
-                        {this.props.vegan? <MiniLogo src={broccoli} alt=""/> : null}
-                        {this.props.dairyFree? <MiniLogo src={nomilk} alt=""/> : null}
+                        {this.props.glutenFree? <Diet>GF</Diet> : null}
+                        {this.props.vegetarian? <Diet>V</Diet> : null}
+                        {this.props.vegan? <Diet>VG</Diet> : null}
+                        {this.props.dairyFree? <Diet>DF</Diet> : null}
+                        {this.props.ketogenic? <Diet>K</Diet> : null}
                       </LogoBar>
                       <Time><FaClockO/>{
                         this.props.preparationMinutes? this.props.preparationMinutes
                          : this.props.readyInMinutes
                         }'</Time>  
                     </LogoBarOut>                       
-                  <RecipeTitle>{recipe.title}</RecipeTitle>
+                  
                   {/* {loggedIn? <Save onClick={this.saveRecipe}><FaStarO /></Save> : null } */}
                 </UpperBand>
                 </Link>
@@ -94,6 +96,9 @@ class RecipeCard extends Component {
   `
   const RecipeTitle = styled.div`
     min-height: 30px;
+    text-align : left;
+    width : 100%;
+    font-weight : 500;
   `
 
   const Save = styled.div`
@@ -109,20 +114,22 @@ class RecipeCard extends Component {
   `
   const LogoBar = styled.div`
     min-height : 20px;
-    width : 80%;
+    width : 75%;
     display : flex;
   `
   const LogoBarOut = LogoBar.extend`
     width : 100%;
   `
 
-  const MiniLogo = styled.img`
+  const Diet = styled.div`
     width : 20px;
     height : 20px;
     margin : 0 2%;
+    text-align : center;
+    font-weight: 100;
   `
   const Time = styled.div`
     font-size : 2vh;
-    width : 20%;
+    width : 25%;
   `
 

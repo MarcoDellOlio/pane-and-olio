@@ -69,12 +69,13 @@ class Home extends Component {
         
         <SplashImage>
           <SearchBar>
-          <SearchField onChange={ _.debounce(this.handlChange, 1000, {
+          <Form onSubmit={this.handleSubmit}>
+          <SearchField placeholder="  search" onChange={ _.debounce(this.handlChange, 1000, {
                             'leading': true,
                             'trailing': false
                             })} 
             name="searchWord"/>
-          <div onClick={this.handleSubmit}><GoSearch/></div>
+          </Form>
           </SearchBar>
         </SplashImage>
 
@@ -101,6 +102,9 @@ const SearchBar = Wrapper.extend`
   flex-direction : row;
   height : auto;
   width : 200px;
+`
+const Form = styled.form`
+width : 100%;
 `
 const SearchField = styled.input`
   width : 100%;

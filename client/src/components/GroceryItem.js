@@ -32,8 +32,11 @@ const GroceryWrapper = styled.div`
  `
 const GroceryName = styled.div`
     width : 80%;
-    text-align : center;
+    text-align: left;
+    margin-left: 5%;
 `
 const Cross = styled.div`
     width : 20%;
+    text-align: right;
+    margin-right: 5%;
 `

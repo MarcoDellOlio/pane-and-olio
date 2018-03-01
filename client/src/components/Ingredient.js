@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaQuestion from 'react-icons/lib/fa/question'
+import MdSwapHoriz from 'react-icons/lib/md/swap-horiz'
 import FaCartPlus from 'react-icons/lib/fa/cart-plus'
 import { withAlert } from 'react-alert'
 
@@ -66,23 +67,28 @@ class Ingredient extends Component {
             ingredientId: this.props.id,
             inCart : true
         }
-        axios.get(`/api/users/${userId}/grocerylist`)
-        .then(res => {
-            return res.data.groceryList.some(product => {return product.name === ingredient.name})
-        })
-        .then(isInList => {
-                if (isInList) {
-                    this.props.alert.error('Product already in list')
-                    return axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)   
-                }
-                else {
-                    this.props.alert.success('Product added in the cart')
-                    return axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
-                }
+        if(userId) {
+            axios.get(`/api/users/${userId}/grocerylist`)
+            .then(res => {
+                return res.data.groceryList.some(product => {return product.name === ingredient.name})
             })
-        .then(res => {return axios.post(`/api/users/${userId}/grocerylist` , res.data.ingredient)})
-        .then(res => {console.log(res)})
-        .catch((error) => { console.log(error) })
+            .then(isInList => {
+                    if (isInList) {
+                        this.props.alert.error('Product already in list')
+                        // check if the recipe exist otherwise create the recipe in the cookbook
+                        // return axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)   
+                    }
+                    else {
+
+                        this.props.alert.success('Product added in the cart')
+                        // return axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
+                    }
+            })
+            .then(res => {return axios.post(`/api/users/${userId}/grocerylist` , ingredient)})
+            .then(res => {console.log(res)})
+            .catch((error) => { console.log(error) })
+        }
+        else {this.props.alert.error('You must login for adding the item to your cart')}
     }
 
     getSubstitutes = () => {
@@ -123,19 +129,16 @@ class Ingredient extends Component {
         return (
             <OuterWrapper>
                 <IngredientWrapper >
-                        {localStorage.userId?
+                        
                             <CheckButtonYes onClick={() => this.isPresent(true)} present={present}><FaCheck/></CheckButtonYes>
-                        : null
-                        }
-                        <IngredientName>{ingredient.originalString} </IngredientName>
-                        {localStorage.userId?
-                            <CheckButtonNo onClick={() => this.isPresent(false)} present={present}><FaQuestion/></CheckButtonNo>
-                        : null
-                        }
-                        {localStorage.userId?
+                       
+                            <IngredientName>{ingredient.originalString} </IngredientName>
+                   
+                            <CheckButtonNo onClick={() => this.isPresent(false)} present={present}><MdSwapHoriz/></CheckButtonNo>
+            
+                        
                             <CheckButton onClick={() => this.addToGroceryList()}><FaCartPlus/></CheckButton>
-                        : null
-                        }
+                        
                 </IngredientWrapper>       
                 
                         {present === false?

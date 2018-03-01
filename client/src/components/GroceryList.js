@@ -98,7 +98,7 @@ class GroceryList extends Component {
                     </StoreLogo>
                     <StoreContent>
                         <StoreName>{store.name}</StoreName>
-                        <div>{store.vicinity}</div>
+                        <Address>{store.vicinity}</Address>
                     </StoreContent>
                 </StoreWrapper>
             )
@@ -181,7 +181,7 @@ class GroceryList extends Component {
 
   const StoresTitle = styled.div`
     text-align : center;
-    margin : 5% 0;
+    margin-top: 10%;
     font-style : bold;
   `
 
@@ -203,5 +203,9 @@ class GroceryList extends Component {
 
   const StoreName = styled.div`
     font-size : 3vh;
-    font-style : bold;
+    font-weight : 500;
+  `
+
+  const Address = styled.div`
+   font-weight : 100;
   `

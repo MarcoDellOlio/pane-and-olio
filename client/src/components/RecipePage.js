@@ -4,9 +4,7 @@ import IngredientsView from './IngredientsView'
 import PreparationView from './PreparationView'
 import axios from 'axios'
 import styled from 'styled-components'
-
-
-
+import FaStar from 'react-icons/lib/fa/star'
 
 class RecipePage extends Component {
 
@@ -36,10 +34,34 @@ class RecipePage extends Component {
             {return recipe.recipeId === recipeId.toString()})
         })
         .then((savedRecipe) => {
-            this.setState({savedRecipeId : savedRecipe[0]._id})
+            console.log(savedRecipe)
+            if (savedRecipe.length === 1) {
+                this.setState({savedRecipeId : savedRecipe[0]._id})
+            }
+
+            else {this.setState({savedRecipeId : ""})}
         })
         .catch((error) => { console.log(error) })
     }
+
+    saveOrDeleteRecipe = () => {
+        const recipeId = this.state.recipe.id
+        const name = this.state.recipe.title
+        const userId = localStorage.userId
+        const newRecipe = {recipeId, name}
+        const recipeDbId = this.state.savedRecipeId
+        if (recipeDbId === "") {
+            console.log("something happening")
+            axios.post(`/api/users/${userId}/recipes`, newRecipe)
+            .then(res => this.getSavedRecipeId())
+            .catch((error) => { console.log(error) })
+        }
+        else {
+            axios.delete(`/api/users/${userId}/recipes/${recipeDbId}`)
+            .then(res => this.getSavedRecipeId())
+            .catch((error) => { console.log(error) })
+        }
+      }
 
     showIngredients = () => {
         this.setState({ingredientsOrPreparation : "ingredients"})
@@ -56,16 +78,22 @@ class RecipePage extends Component {
 
     render() {
 
+        console.log("rendring")
+
         const recipe = this.state.recipe
         const savedRecipeId = this.state.savedRecipeId
         const ingredients = this.state.recipe.extendedIngredients
         const instructions = this.state.recipe.analyzedInstructions
+        const loggedIn = localStorage.id_token
 
         return (
             
             <RecipeWrapper>
                 <RecipeCardContainer>
-                    <RecipeTitle>{recipe.title}</RecipeTitle>
+                    <RecipeTitle>
+                        <Title>{recipe.title}</Title> 
+                        {loggedIn? <Save isSaved={this.state.savedRecipeId} onClick={() => this.saveOrDeleteRecipe()}> <FaStar/> </Save> : null }
+                    </RecipeTitle>
 
                     <RecipeContent>
                         <RecipeMenu>
@@ -94,11 +122,28 @@ class RecipePage extends Component {
 
   const RecipeTitle = styled.div`
     font-size : 3vh;
-    font-style : bold;
     margin : 3vh 0;
     height : 10%;
-    text-align : center
+    width : 100%;
+    display : flex;
+    align-items : center;
   `
+  const Title = styled.div`
+    width : 90%;
+    margin-left : 5%;
+  `
+
+  const Save = styled.div`
+    text-align : center;
+    width: 10%;
+    font-size: 4vh;
+    font-weight : bolder;
+    color : ${props => {
+        if (props.isSaved === undefined) {"#484848"}
+        else if (props.isSaved) {return "goldenrod"}
+        else {null}
+        }} ;
+`
 
 const RecipeWrapper = Wrapper.extend`
     padding-top : 10vh;

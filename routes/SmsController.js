@@ -12,7 +12,10 @@ const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWI
             mediaUrl: 'https://i.imgur.com/V8Jxe3D.jpg',
             body: `PANE & OLIO grocerylist:${list}    stores:${stores}`
         })
-        .then((message) => console.log(message.sid));
+        .then((message) => {
+            console.log(message.sid)
+            res.status(200)
+        });
     })
 
     

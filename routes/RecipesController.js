@@ -12,6 +12,17 @@ const User = require('../db/models/userModel')
             .catch((error) => { console.log(error) })
     })
 
+    router.delete('/:recipeId', (req, res) => {
+        User.findById(req.params.userId)
+            .then((user) => {
+                const recipe = user.recipes.id(req.params.recipeId)
+                recipe.remove()
+                return user.save()
+            })
+            .then(user => res.json(user))
+            .catch((error) => { console.log(error) })
+    })
+
     router.get('/', (req, res) => {
         User.findById(req.params.userId)
             .then((user) => {res.json(user.recipes)})
@@ -30,6 +41,7 @@ const User = require('../db/models/userModel')
     router.post('/:recipeId', (req, res) => {
         User.findById(req.params.userId)
             .then((user) => {
+                console.log("hitting this rout")
                 const recipe = user.recipes.id(req.params.recipeId)
                 const isRecipeInDB = recipe.ingredientsList.findIndex((ingredient) => {
                     return parseInt(ingredient.ingredientId) === req.body.ingredientId

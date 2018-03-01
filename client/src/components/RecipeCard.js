@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import { Img} from './BasicComponents'
 import styled from 'styled-components'
 import axios from 'axios'
-import FaStarO from 'react-icons/lib/fa/star-o'
-import glutenfree from './gluten-free.png'
-import salad from './salad.png'
-import broccoli from './broccoli.png'
-import nomilk from './nomilk.png'
 import FaClockO from 'react-icons/lib/fa/clock-o'
 import { Link } from 'react-router-dom'
 
@@ -16,17 +11,7 @@ import { Link } from 'react-router-dom'
 
 class RecipeCard extends Component {
 
-    saveRecipe = () => {
-      const recipeId = this.props.id
-      const name = this.props.title
-      const userId = localStorage.userId
-      const newRecipe = {recipeId, name}
-
-      axios.post(`api/users/${userId}/recipes`, newRecipe)
-      .then(res => console.log(res))
-      .catch((error) => { console.log(error) })
-
-    }
+   
 
     render() {
         const recipe = this.props
@@ -37,7 +22,7 @@ class RecipeCard extends Component {
           
             <CardContainer >
               <Link to={recipeUrl}>
-                <RecipeImage> 
+                <RecipeImage>
                      <CardImg  src={recipe.image} alt=""/>
                  </RecipeImage>
                  <UpperBand>
@@ -55,8 +40,6 @@ class RecipeCard extends Component {
                          : this.props.readyInMinutes
                         }'</Time>  
                     </LogoBarOut>                       
-                  
-                  {/* {loggedIn? <Save onClick={this.saveRecipe}><FaStarO /></Save> : null } */}
                 </UpperBand>
                 </Link>
             </CardContainer>
@@ -93,6 +76,7 @@ class RecipeCard extends Component {
     width : 100%;
     height : auto;
     border-radius : 10px;
+    position : relative;
   `
   const RecipeTitle = styled.div`
     min-height: 30px;
@@ -104,7 +88,12 @@ class RecipeCard extends Component {
   const Save = styled.div`
     text-align : center;
     width: auto;
-    font-size: 2vh;
+    font-size: 4vh;
+    position: absolute;
+    top: 2%;
+    left: 83%;
+    font-weight : bolder;
+    color : black;
   `
 
   const CardImg = Img.extend`

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {Img} from './BasicComponents'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import chef from './chef.png'
 import FaArrowRight from 'react-icons/lib/fa/arrow-right'
 
 

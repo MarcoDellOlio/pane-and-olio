@@ -91,6 +91,8 @@ export default class Auth {
     localStorage.removeItem('name');
     localStorage.removeItem('picture');
     localStorage.removeItem('email');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
     // navigate to the home route
     history.replace('/home');
   }

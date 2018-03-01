@@ -111,10 +111,19 @@ class Ingredient extends Component {
         return (
             <OuterWrapper>
                 <IngredientWrapper >
-                    <CheckButtonYes onClick={() => this.isPresent(true)} present={present}><FaCheck/></CheckButtonYes>
+                        {localStorage.userId?
+                            <CheckButtonYes onClick={() => this.isPresent(true)} present={present}><FaCheck/></CheckButtonYes>
+                        : null
+                        }
                         <IngredientName>{ingredient.originalString} </IngredientName>
-                    <CheckButtonNo onClick={() => this.isPresent(false)} present={present}><FaQuestion/></CheckButtonNo>
-                        <CheckButton onClick={() => this.addToGroceryList()}><FaCartPlus/></CheckButton>
+                        {localStorage.userId?
+                            <CheckButtonNo onClick={() => this.isPresent(false)} present={present}><FaQuestion/></CheckButtonNo>
+                        : null
+                        }
+                        {localStorage.userId?
+                            <CheckButton onClick={() => this.addToGroceryList()}><FaCartPlus/></CheckButton>
+                        : null
+                        }
                 </IngredientWrapper>       
                 
                         {present === false?
@@ -146,6 +155,7 @@ class Ingredient extends Component {
     min-height : 5vh;
     text-align : center;
     background-color : ghostwhite;
+    justify-content : center;
   `
 
   const IngredientName = Wrapper.extend`

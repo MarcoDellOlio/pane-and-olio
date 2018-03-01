@@ -32,8 +32,8 @@ const User = require('../db/models/userModel')
             .then((user) => {
                 const recipe = user.recipes.id(req.params.recipeId)
                 const isRecipeInDB = recipe.ingredientsList.findIndex((ingredient) => {
-                                    return parseInt(ingredient.ingredientId) === req.body.ingredientId
-                                    })
+                    return parseInt(ingredient.ingredientId) === req.body.ingredientId
+                })
                 if (isRecipeInDB !== -1) {
                     recipe.ingredientsList.splice(isRecipeInDB,1,req.body)
                 }

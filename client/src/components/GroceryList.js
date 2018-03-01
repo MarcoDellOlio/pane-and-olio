@@ -3,6 +3,7 @@ import {Wrapper} from './BasicComponents'
 import GroceryItem from './GroceryItem'
 import axios from 'axios'
 import styled from 'styled-components'
+import FaMapMarker from 'react-icons/lib/fa/map-marker'
 
 
 const getPosition = function (options) {
@@ -25,10 +26,6 @@ class GroceryList extends Component {
 
         axios.get(`/api/users/${userId}/grocerylist`)
         .then(groceryList => {
-            const stores = groceryList.data.groceryList.filter((store, index) =>
-            {return index < 3 }
-        )
-            console.log(stores)
             this.setState({groceryList : groceryList.data.groceryList} )
         })
         .catch((error) => { console.log(error) })
@@ -72,9 +69,10 @@ class GroceryList extends Component {
             return axios.get(`/api/gmap?long=${long}&lat=${lat}`)
         })
         .then((res) => {
-            const groceryStores = res.data.map(store => {
+            let groceryStores = res.data.map(store => {
                 return {name : store.name, vicinity : store.vicinity}
             })
+            groceryStores = groceryStores.filter((store, index) => {return index < 3 })
             this.setState({groceryStores})
         })
         .catch((error) => { console.log(error) })
@@ -94,10 +92,15 @@ class GroceryList extends Component {
 
         const groceryStores = this.state.groceryStores.map((store, index) => {
             return (
-                <div key={index}>
-                    <div>{store.name}</div>
-                     <div>{store.vicinity}</div>
-                </div>
+                <StoreWrapper key={index}>
+                    <StoreLogo>
+                        <FaMapMarker/>
+                    </StoreLogo>
+                    <StoreContent>
+                        <StoreName>{store.name}</StoreName>
+                        <div>{store.vicinity}</div>
+                    </StoreContent>
+                </StoreWrapper>
             )
         })
         
@@ -115,18 +118,25 @@ class GroceryList extends Component {
                     {groceryList}
                 </GroceryContainer>
                 
+            <MessageAndStores>
+                <Messages>
+                    <SendingForm>
+                        <div>Send by SMS</div>
+                        <input name="phoneNumber" onChange={this.handlChange}/>
+                        <button onClick={this.sendSms}>Send</button>
+                    </SendingForm>
 
-                <div>Send by SMS</div>
-                <input name="phoneNumber" onChange={this.handlChange}/>
-                <button onClick={this.sendSms}>Send</button>
-
-                <div>Send by Email</div>
-                <input name="emailAddress" onChange={this.handlChange}/>
-                <button onClick={this.sendEmail}>Send</button>
-
+                    <SendingForm>
+                        <div>Send by Email</div>
+                        <input name="emailAddress" onChange={this.handlChange}/>
+                        <button onClick={this.sendEmail}>Send</button>
+                    </SendingForm>
+                </Messages>
+                <StoresTitle>Closest Grocery Stores</StoresTitle>
                 <Wrapper>
                     {groceryStores}
                 </Wrapper>
+            </MessageAndStores>
 
             </GroceryListWrapper>
         )
@@ -137,7 +147,7 @@ class GroceryList extends Component {
 
   const GroceryListWrapper = Wrapper.extend`
     padding-top : 10vh;
-
+    height: auto;
   `
 
   const GroceryContainer = Wrapper.extend`
@@ -148,4 +158,50 @@ class GroceryList extends Component {
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     border-radius: 4px;
     height: auto;
+  `
+
+  const MessageAndStores = styled.div`
+    width : 100%;
+    display : flex;
+    flex-direction : column;
+  `
+
+  const Messages = styled.div`
+    display : flex;
+    flex-direction : row;
+    width : 100%;
+    justify-content : space-around;
+  `
+
+  const SendingForm = styled.div`
+  display : flex;
+  flex-direction : column;
+  text-align : center
+  `
+
+  const StoresTitle = styled.div`
+    text-align : center;
+    margin : 5% 0;
+    font-style : bold;
+  `
+
+  const StoreWrapper = styled.div`
+    display : flex;
+    flex-direction : row;
+    width : 90%;
+    margin : 3% 0;
+  `
+
+  const StoreContent = styled.div`
+    display : flex;
+    flex-direction : column;
+  `
+
+  const StoreLogo = styled.div`
+    font-size : 4vh;
+  `
+
+  const StoreName = styled.div`
+    font-size : 3vh;
+    font-style : bold;
   `

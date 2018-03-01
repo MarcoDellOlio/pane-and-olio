@@ -20,12 +20,26 @@ class Home extends Component {
 
   handlChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
+    event.preventDefault()
+  }
+
+  handleSubmit = (event) => {
     axios({
       method: 'get',
       url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?query=${this.state.searchWord}&number=10`,
       headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
     })
-    .then(res => this.setState({recipes : res.data.results}))
+    .then(res => {
+      const idList = res.data.results.map(recipe => {return recipe.id}).join("%2C")
+      return axios({
+              method: 'get',
+              url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${idList}&includeNutrition=false`,
+              headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
+            })
+    })
+    .then((res => {
+      this.setState({recipes : res.data})
+    }))
     event.preventDefault()
   }
 
@@ -60,7 +74,7 @@ class Home extends Component {
                             'trailing': false
                             })} 
             name="searchWord"/>
-          <div><GoSearch/></div>
+          <div onClick={this.handleSubmit}><GoSearch/></div>
           </SearchBar>
         </SplashImage>
 
@@ -97,7 +111,8 @@ const SearchField = styled.input`
 
 const SplashImage = styled.div`
   width : 100%;
-  height : 50vh;
+  height : 50%;
+  max-height : 176px;
   display : flex;
   justify-content : center;
   align-items : center;

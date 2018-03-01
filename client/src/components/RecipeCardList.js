@@ -11,6 +11,8 @@ class RecipeCardList extends Component {
     render() {
 
       const list = this.props.recipes
+
+      console.log(this.props.recipes)
       
       // the line below uses a local recipe list
       // const list = recipeslist 

@@ -48,7 +48,10 @@ class RecipeCard extends Component {
                         {this.props.vegan? <MiniLogo src={broccoli} alt=""/> : null}
                         {this.props.dairyFree? <MiniLogo src={nomilk} alt=""/> : null}
                       </LogoBar>
-                      <Time><FaClockO/>{this.props.preparationMinutes}'</Time>  
+                      <Time><FaClockO/>{
+                        this.props.preparationMinutes? this.props.preparationMinutes
+                         : this.props.readyInMinutes
+                        }'</Time>  
                     </LogoBarOut>                       
                   <RecipeTitle>{recipe.title}</RecipeTitle>
                   {/* {loggedIn? <Save onClick={this.saveRecipe}><FaStarO /></Save> : null } */}
@@ -65,6 +68,7 @@ class RecipeCard extends Component {
   const CardContainer = styled.div`
     width : 48%;
     max-width : 180px;
+    min-height : 188px;
     display : flex;
     flex-direction : column;
     background-color : ghostwhite;

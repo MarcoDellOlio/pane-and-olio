@@ -55,6 +55,6 @@ class RecipeList extends Component {
   const RecipeListContainer = Wrapper.extend`
     flex-direction : row;
     flex-wrap : wrap;
-    justify-content : space-around;
+    justify-content : start;
     height : auto;
 `

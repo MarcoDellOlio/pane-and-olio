@@ -150,6 +150,9 @@ class RecipePage extends Component {
   const RecipeCardContainer = Wrapper.extend`
     height : auto;
     width : 95%;
+    @media (min-width: 420px) {
+        width : 45%;
+      }
   `
 
   const RecipeTitle = styled.div`

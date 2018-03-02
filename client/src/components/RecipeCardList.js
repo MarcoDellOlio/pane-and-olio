@@ -33,7 +33,6 @@ class RecipeCardList extends Component {
   const RecipesCardBoard = Wrapper.extend`
     flex-direction : row;
     flex-wrap : wrap;
-    justify-content : space-around;
     height : auto;
   `
 

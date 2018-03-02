@@ -156,7 +156,10 @@ class GroceryList extends Component {
 
   const GroceryListWrapper = Wrapper.extend`
     padding-top : 10vh;
-    height: auto;
+    min-height: 100%;
+    flex-direction : row;
+    flex-wrap : wrap;
+    justify-content : center;
   `
 
   const GroceryContainer = Wrapper.extend`
@@ -167,12 +170,21 @@ class GroceryList extends Component {
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     border-radius: 4px;
     height: auto;
+    max-width : 300px;
+    @media (min-width: 420px) {
+        margin : 5% 5%;
+      }
   `
 
   const MessageAndStores = styled.div`
     width : 100%;
     display : flex;
+    height : auto;
     flex-direction : column;
+    max-width : 300px;
+    @media (min-width: 420px) {
+        margin : 5% 5%;
+      }
   `
 
   const Messages = styled.div`

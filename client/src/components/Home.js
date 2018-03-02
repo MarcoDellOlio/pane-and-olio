@@ -100,15 +100,16 @@ const HomeWrapper = Wrapper.extend`
 
 const SearchBar = Wrapper.extend`
   flex-direction : row;
-  height : auto;
-  width : 200px;
+  height : 20%;
+  width : 50%;
 `
 const Form = styled.form`
 width : 100%;
+height : 100%
 `
 const SearchField = styled.input`
   width : 100%;
-  height : 20px;
+  height : 60%;
   border-radius : 5px;
   background-color : ghostwhite;
  `
@@ -116,7 +117,6 @@ const SearchField = styled.input`
 const SplashImage = styled.div`
   width : 100%;
   height : 50%;
-  max-height : 176px;
   display : flex;
   justify-content : center;
   align-items : center;
@@ -124,7 +124,7 @@ const SplashImage = styled.div`
   background-size:     cover;              
   background-repeat:   no-repeat;
   background-position: center center;
-  @media (mai-width: 420px) {
+  @media (min-width: 420px) {
     height : 70%;
   }
 `

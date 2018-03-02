@@ -34,7 +34,6 @@ class RecipePage extends Component {
             {return recipe.recipeId === recipeId.toString()})
         })
         .then((savedRecipe) => {
-            console.log(savedRecipe)
             if (savedRecipe.length === 1) {
                 this.setState({savedRecipeId : savedRecipe[0]._id})
             }

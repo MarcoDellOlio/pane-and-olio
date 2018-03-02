@@ -19,7 +19,6 @@ const RecipeSchema = new Schema(
   {
     name: {type: String, required: true},
     recipeId: {type: String, required: true},
-    isSaved: {type: Boolean},
     ingredientsList : [IngredientSchema]
   },
   {

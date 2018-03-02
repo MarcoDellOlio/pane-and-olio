@@ -27,6 +27,14 @@ const handleAuthentication = ({location}) => {
 
 class App extends Component {
 
+  state = {
+    itemsIncart : 0
+  }
+
+  getNumberOfItemsInCart = (itemsInCart) => {
+    this.setState({itemsInCart})
+  }
+
   
   render() {
     return (
@@ -39,7 +47,10 @@ class App extends Component {
           <Route exact path="/profile" render={(props) => (!auth.isAuthenticated() ? (<Redirect to="/home"/>) : (<ProfilePage auth={auth} {...props} />))}/>
           <Route exact path="/cookbook" render={(props) => (!auth.isAuthenticated() ? <Redirect to="/home"/> : <Cookbook/>)}/>
           <Route exact path="/recipes/:recipeId" render={(props) => (<RecipePage {...props}/>)}/>
-          <Route exact path="/groceryList" render={(props) => (!auth.isAuthenticated() ? (<Redirect to="/home"/>) : (<GroceryList />))}/>
+          <Route exact path="/groceryList" render={(props) => 
+            (!auth.isAuthenticated() ? 
+            (<Redirect to="/home"/>) : 
+            (<GroceryList getNumberOfItemsInCart={this.getNumberOfItemsInCart}/>))}/>
         </Switch>
           <Route exact path="/callback" render={(props) => {handleAuthentication(props); return <CallbackComponent {...props} /> }}/>
       </AppContainer>

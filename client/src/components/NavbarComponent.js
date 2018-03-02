@@ -75,7 +75,7 @@ export const Navbar = styled.div`
 
 const LoginInfo = styled.div`
   height : 100%;
-  width : 70%;
+  width : 69%;
   display : flex;
   justify-content : space-around;
   align-items : center;
@@ -86,7 +86,7 @@ const HomeLogo = styled.div`
 `
 
 const LogIn = styled.div`
-width : 15%;
+width : 16%;
 text-align : right;
 `
 const Logo = styled.img`

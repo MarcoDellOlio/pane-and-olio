@@ -4,6 +4,9 @@ import GroceryItem from './GroceryItem'
 import axios from 'axios'
 import styled from 'styled-components'
 import FaMapMarker from 'react-icons/lib/fa/map-marker'
+import FaCommentingO from 'react-icons/lib/fa/commenting-o'
+import FaEnvelope from 'react-icons/lib/fa/envelope'
+
 
 
 const getPosition = function (options) {
@@ -121,15 +124,17 @@ class GroceryList extends Component {
             <MessageAndStores>
                 <Messages>
                     <SendingForm>
-                        <div>Send by SMS</div>
-                        <input name="phoneNumber" onChange={this.handlChange}/>
-                        <button onClick={this.sendSms}>Send</button>
-                    </SendingForm>
-
-                    <SendingForm>
-                        <div>Send by Email</div>
-                        <input name="emailAddress" onChange={this.handlChange}/>
-                        <button onClick={this.sendEmail}>Send</button>
+                        <div>Send by text or email</div>
+                        <input 
+                            placeholder="insert email or phone number"
+                            name="emailAddress"
+                            onChange={this.handlChange}
+                        />
+                        <Buttons>
+                            <div onClick={this.sendSms}><FaCommentingO/></div>
+                            <div onClick={this.sendEmail}><FaEnvelope/></div>
+                        </Buttons>
+                        
                     </SendingForm>
                 </Messages>
                 <StoresTitle>Closest Grocery Stores</StoresTitle>
@@ -171,6 +176,13 @@ class GroceryList extends Component {
     flex-direction : row;
     width : 100%;
     justify-content : space-around;
+  `
+  const Buttons = styled.div`
+    display : flex;
+    flex-direction : row;
+    width : 100%;
+    justify-content : space-around;
+    font-size : 4vh;
   `
 
   const SendingForm = styled.div`

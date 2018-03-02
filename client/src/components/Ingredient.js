@@ -27,7 +27,8 @@ class Ingredient extends Component {
             const ingredientsList = res.data.ingredientsList
             if (!!ingredientsList) {
             const correctIngredient = ingredientsList.filter(ingredient => {return parseInt(ingredient.ingredientId) === ingredientId})
-                if (!!correctIngredient[0]) {
+        if (!!correctIngredient[0]) {
+            console.log(correctIngredient[0])
                     this.isPresent(correctIngredient[0].present)
                 }
             }

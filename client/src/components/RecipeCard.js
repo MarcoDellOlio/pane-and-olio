@@ -79,7 +79,7 @@ class RecipeCard extends Component {
     position : relative;
   `
   const RecipeTitle = styled.div`
-    min-height: 30px;
+    min-height: 45px;
     text-align : left;
     width : 100%;
     font-weight : 500;

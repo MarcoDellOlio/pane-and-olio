@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import CookBookRecipe from './CookBookRecipe'
 import {Wrapper} from './BasicComponents'
 import axios from 'axios'
+import RecipeCard from './RecipeCard'
 
 class RecipeList extends Component {
 
@@ -36,7 +37,7 @@ class RecipeList extends Component {
     render() {
 
         const CookBookRecipesList = this.state.recipes.map( recipe => {
-          return (<CookBookRecipe key={recipe.id} {...recipe}/>)
+          return (<RecipeCard key={recipe.id} {...recipe}/>)
         })
     
         
@@ -52,6 +53,8 @@ class RecipeList extends Component {
   export default RecipeList;
 
   const RecipeListContainer = Wrapper.extend`
-    padding : 5%;
-    width : 90%;
+    flex-direction : row;
+    flex-wrap : wrap;
+    justify-content : space-around;
+    height : auto;
 `

@@ -41,18 +41,19 @@ const User = require('../db/models/userModel')
     router.post('/:recipeId', (req, res) => {
         User.findById(req.params.userId)
             .then((user) => {
-                console.log("hitting this rout")
                 const recipe = user.recipes.id(req.params.recipeId)
                 const isRecipeInDB = recipe.ingredientsList.findIndex((ingredient) => {
                     return parseInt(ingredient.ingredientId) === req.body.ingredientId
                 })
+
                 if (isRecipeInDB !== -1) {
                     recipe.ingredientsList.splice(isRecipeInDB,1,req.body)
+                    console.log("ingredient in db")
                 }
                 else {
+                    console.log("ingredient not in db")
                     recipe.ingredientsList.push(req.body)
                 }
-
                 user.save()
                 return req.body
             })

@@ -4,13 +4,16 @@ const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWI
 
     router.post('/:phoneNumber', (req, res) => {
         console.log(req.params.phoneNumber)
-        list = req.body.groceryList.map(product => product.name).join(", ")
-        stores = req.body.groceryStores.map(store => `${store.name} - ${store.vicinity}`).join(", ")
+        list = req.body.groceryList.map(product => `\n* ${product.name}`).join(" ")
+        stores = req.body.groceryStores.map(store => `\n${store.name} \n${store.vicinity} \n`).join(" ")
         client.messages.create({
             to: `+1${req.params.phoneNumber}`,
             from: '+17062045793',
-            mediaUrl: 'https://i.imgur.com/V8Jxe3D.jpg',
-            body: `PANE & OLIO grocerylist:${list}    stores:${stores}`
+            body: `PANE & OLIO \n
+                    Grocery list: 
+                    ${list} 
+                    Closest stores: 
+                    \n${stores}`
         })
         .then((message) => {
             console.log(message.sid)

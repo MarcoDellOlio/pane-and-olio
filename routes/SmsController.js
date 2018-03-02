@@ -14,7 +14,8 @@ const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWI
                     Closest stores: 
                     \n${stores}
                     \nThank you for using my app!
-                    \nVisit my website www.marcodellolio.com
+                    \nFor more info
+                    \nvisit my website www.marcodellolio.com
                     \nor send an email to dellolio.marco@gmail.com
                     `
 

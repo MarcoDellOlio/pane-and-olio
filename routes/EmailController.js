@@ -28,8 +28,9 @@ const transporter = nodemailer.createTransport({
                     <br/>
                     <br/>
                     <h4>Thank you for using my app!</h4>
+                    <h5>For more info</h5>
                     <h5>Visit my website www.marcodellolio.com</h5>
-                    <h5>or reply to this email for info</h5>
+                    <h5>or reply to this email</h5>
 
             `
         };

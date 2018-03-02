@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Router, Redirect, Switch } from 'react-router-dom';
+import axios from 'axios'
 import NavbarComponent from './NavbarComponent';
 import Home from './Home';
 import ProfilePage from './ProfilePage'
@@ -26,33 +27,58 @@ const handleAuthentication = ({location}) => {
 
 
 class App extends Component {
-
+  
   state = {
-    itemsIncart : 0
   }
 
-  getNumberOfItemsInCart = (itemsInCart) => {
-    this.setState({itemsInCart})
+  getNumberOfItemsInCart = () => {
+    const userId = localStorage.userId
+    axios.get(`/api/users/${userId}/grocerylist`)
+    .then(res => {
+      const itemsInCart = res.data.groceryList.length
+      this.setState({itemsInCart})
+    })
+    
   }
+
+  
+  componentWillMount() {
+    this.getNumberOfItemsInCart()
+  }
+  
 
   
   render() {
     return (
       <Router history={history}>
       <AppContainer>
-        <NavbarComponent auth={auth}/>      
+        <NavbarComponent auth={auth} itemsInCart={this.state.itemsInCart}/>      
         <Switch>
+
           <Route exact path="/" render={(props) => <Redirect to="/home"/>} />
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
-          <Route exact path="/profile" render={(props) => (!auth.isAuthenticated() ? (<Redirect to="/home"/>) : (<ProfilePage auth={auth} {...props} />))}/>
-          <Route exact path="/cookbook" render={(props) => (!auth.isAuthenticated() ? <Redirect to="/home"/> : <Cookbook/>)}/>
-          <Route exact path="/recipes/:recipeId" render={(props) => (<RecipePage {...props}/>)}/>
+          <Route exact path="/profile" render={(props) => 
+            (!auth.isAuthenticated() ? 
+            (<Redirect to="/home"/>) : 
+            (<ProfilePage auth={auth} {...props} />))}/>
+
+          <Route exact path="/cookbook" render={(props) => 
+            (!auth.isAuthenticated() ? 
+            <Redirect to="/home"/> : 
+            <Cookbook/>)}/>
+
+          <Route exact path="/recipes/:recipeId" render={(props) => 
+            (<RecipePage {...props} getNumberOfItemsInCart={this.getNumberOfItemsInCart}/>)}/>
+
           <Route exact path="/groceryList" render={(props) => 
             (!auth.isAuthenticated() ? 
             (<Redirect to="/home"/>) : 
             (<GroceryList getNumberOfItemsInCart={this.getNumberOfItemsInCart}/>))}/>
+
         </Switch>
-          <Route exact path="/callback" render={(props) => {handleAuthentication(props); return <CallbackComponent {...props} /> }}/>
+          <Route exact path="/callback" render={(props) => 
+            {handleAuthentication(props); 
+            return <CallbackComponent {...props} /> }}/>
       </AppContainer>
     </Router>
     );

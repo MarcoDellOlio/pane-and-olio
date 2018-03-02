@@ -23,6 +23,7 @@ class NavbarComponent extends Component {
 
   render() {
 
+    const itemsInCart = this.props.itemsInCart
     const { isAuthenticated } = this.props.auth;
     const name = localStorage.name? 
         localStorage.name === localStorage.email? localStorage.username 
@@ -42,9 +43,13 @@ class NavbarComponent extends Component {
               <LoginInfo/>
             :
             <LoginInfo>
-              <div> Hi {name}</div>
-              <div> <Link to='/cookbook'>Cookbook</Link> </div>
-              <div><Link to='/groceryList'>Grocery List</Link></div>
+              <NavItem> Hi {name}</NavItem>
+              <NavItem> <Link to='/cookbook'>Cookbook</Link> </NavItem>
+              <NavItem>
+                <Link to='/groceryList'>Grocery List</Link>
+                <ItemsInCart>{itemsInCart > 0? itemsInCart : null}</ItemsInCart>
+              </NavItem>
+              
             </LoginInfo>
               }
             <LogIn>
@@ -79,6 +84,17 @@ const LoginInfo = styled.div`
   display : flex;
   justify-content : space-around;
   align-items : center;
+`
+const NavItem = styled.div`
+  height : 100%;
+  display : flex;
+  align-items : center;
+`
+const ItemsInCart = styled.div`
+  height : 100%;
+  display : inline-block;
+  padding-top: 40%;
+  color : red;
 `
 
 const HomeLogo = styled.div`

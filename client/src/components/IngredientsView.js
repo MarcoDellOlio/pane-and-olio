@@ -17,7 +17,12 @@ class IngredientsView extends Component {
            if (this.props.ingredients) {
                return this.props.ingredients.map((ingredient, index) => {
                 return (
-                    <Ingredient key={index} {...ingredient} recipeId={recipeId}/>
+                    <Ingredient 
+                        key={index} 
+                        {...ingredient}
+                        recipeId={recipeId}
+                        getNumberOfItemsInCart={this.props.getNumberOfItemsInCart}
+                        />
                 )
             })
            }

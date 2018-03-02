@@ -101,9 +101,15 @@ class RecipePage extends Component {
                         </RecipeMenu>
                         {
                             this.state.ingredientsOrPreparation === "ingredients"?
-                            <IngredientsView ingredients={ingredients} recipeId={savedRecipeId}/>
+                            <IngredientsView 
+                                ingredients={ingredients} 
+                                recipeId={savedRecipeId}
+                                getNumberOfItemsInCart={this.props.getNumberOfItemsInCart}
+                                />
                             :
-                            <PreparationView instructions={instructions} recipeId={savedRecipeId}/>
+                            <PreparationView 
+                                instructions={instructions} 
+                                recipeId={savedRecipeId}/>
                         }
                     </RecipeContent>
                 </RecipeCardContainer>

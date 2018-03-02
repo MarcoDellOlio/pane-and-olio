@@ -79,13 +79,12 @@ class Ingredient extends Component {
                         // return axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)   
                     }
                     else {
-
                         this.props.alert.success('Product added in the cart')
                         // return axios.post(`/api/users/${userId}/recipes/${recipeId}` , ingredient)
                     }
             })
             .then(res => {return axios.post(`/api/users/${userId}/grocerylist` , ingredient)})
-            .then(res => {console.log(res)})
+            .then(res => {this.props.getNumberOfItemsInCart()})
             .catch((error) => { console.log(error) })
         }
         else {this.props.alert.error('You must login for adding the item to your cart')}

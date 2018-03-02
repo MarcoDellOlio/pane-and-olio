@@ -37,7 +37,11 @@ class GroceryList extends Component {
     removeItem = (productId) => {
         const userId = localStorage.userId
         axios.delete(`/api/users/${userId}/grocerylist/${productId}`)
-        .then((res) => this.setState({groceryList : res.data}))
+        .then((res) => {
+            this.props.getNumberOfItemsInCart()
+            this.setState({groceryList : res.data})    
+        })
+        .catch((error) => { console.log(error) })
     }
 
     handlChange = (event) => {
@@ -56,11 +60,9 @@ class GroceryList extends Component {
 
     sendEmail = (event) => {
         axios.post(`/api/email/${this.state.emailAddress}`, this.state.groceryList)
-            .then(res => {
-                console.log(res)
-            })
+            .then(res => {console.log(res)})
             .catch((error) => { console.log(error) })
-        event.preventDefault()
+             event.preventDefault()
     }
 
     getStores = () => {
@@ -110,7 +112,11 @@ class GroceryList extends Component {
           
         const groceryList = this.state.groceryList.map((product) => {
             return (
-                <GroceryItem key={product._id} {...product} removeItem={this.removeItem}/>
+                <GroceryItem key={product._id}
+                    {...product} 
+                    removeItem={this.removeItem}
+                    getNumberOfItemsInCart={this.props.getNumberOfItemsInCart}
+                />
             )
         })
 

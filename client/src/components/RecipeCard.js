@@ -49,14 +49,14 @@ class RecipeCard extends Component {
   export default RecipeCard;
 
   const CardContainer = styled.div`
-    width : 48%;
+    width : 45%;
     max-width : 180px;
     min-height : 188px;
     display : flex;
     flex-direction : column;
     background-color : ghostwhite;
     font-size : 2vh;
-    margin: 2% 0% 1% 4%;
+    margin: 2% 0% 1% 3%;
     border: 1px solid;
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     border-radius: 4px;

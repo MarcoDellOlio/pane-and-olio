@@ -36,11 +36,16 @@ const transporter = nodemailer.createTransport({
         };
 
         transporter.sendMail(mailOptions, function (err, info) {
-            if(err)
+            if(err){
               console.log(err)
-            else
+              res.json(err)
+            }
+            else{
               console.log(info);
+              res.json(info)
+            }
         });
+
     })
 
 module.exports = router

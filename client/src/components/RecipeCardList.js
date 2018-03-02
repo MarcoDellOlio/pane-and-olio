@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Wrapper} from './BasicComponents'
-import axios from 'axios'
 import RecipeCard from './RecipeCard'
 
 class RecipeCardList extends Component {

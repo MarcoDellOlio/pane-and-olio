@@ -3,7 +3,6 @@ import {Wrapper} from './BasicComponents'
 import styled from 'styled-components'
 import axios from 'axios'
 import FaCheck from 'react-icons/lib/fa/check'
-import FaQuestion from 'react-icons/lib/fa/question'
 import MdSwapHoriz from 'react-icons/lib/md/swap-horiz'
 import FaCartPlus from 'react-icons/lib/fa/cart-plus'
 import { withAlert } from 'react-alert'
@@ -59,7 +58,6 @@ class Ingredient extends Component {
 
     addToGroceryList = () => {
         const userId = localStorage.userId
-        const recipeId = this.props.recipeId
         const ingredient = {
             name: this.props.name,
             description : this.props.originalString,

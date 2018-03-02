@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import CookBookRecipe from './CookBookRecipe'
 import {Wrapper} from './BasicComponents'
 import axios from 'axios'
 import RecipeCard from './RecipeCard'

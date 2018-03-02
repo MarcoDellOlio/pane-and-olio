@@ -6,12 +6,7 @@ class Cookbook extends Component {
 
     render() {
 
-      const name = localStorage.name? 
-        localStorage.name === localStorage.email? localStorage.username 
-        : 
-        localStorage.name.split(" ")[0]  
-        : 
-        null
+
         
         return (
             <CookbookWrapper>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Img} from './BasicComponents'
 import styled from 'styled-components'
-import axios from 'axios'
 import FaClockO from 'react-icons/lib/fa/clock-o'
 import { Link } from 'react-router-dom'
 
@@ -15,7 +14,6 @@ class RecipeCard extends Component {
 
     render() {
         const recipe = this.props
-        const loggedIn = localStorage.id_token
         const recipeUrl = `recipes/${recipe.id}`
         return (
           
@@ -84,18 +82,7 @@ class RecipeCard extends Component {
     width : 100%;
     font-weight : 500;
   `
-
-  const Save = styled.div`
-    text-align : center;
-    width: auto;
-    font-size: 4vh;
-    position: absolute;
-    top: 2%;
-    left: 83%;
-    font-weight : bolder;
-    color : black;
-  `
-
+  
   const CardImg = Img.extend`
     border-top-left-radius : 4px;
     border-top-right-radius : 4px;

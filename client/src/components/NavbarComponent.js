@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import {Img} from './BasicComponents'
 import styled from 'styled-components';
-import { slide as Menu } from 'react-burger-menu'
 import logo from './olive-oil.png'
 
 

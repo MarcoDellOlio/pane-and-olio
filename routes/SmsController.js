@@ -22,7 +22,7 @@ const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWI
         })
         .then((message) => {
             console.log(message.sid)
-            res.status(200)
+            res.json({ok : "ok"})
         });
     })
 

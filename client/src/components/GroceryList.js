@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import FaMapMarker from 'react-icons/lib/fa/map-marker'
 import FaCommentingO from 'react-icons/lib/fa/commenting-o'
 import FaEnvelope from 'react-icons/lib/fa/envelope'
+import { withAlert } from 'react-alert'
 
 
 
@@ -19,7 +20,6 @@ class GroceryList extends Component {
 
     state = {
         groceryList : [],
-        emailOrNumber : "",
         groceryStores : []
       }
 
@@ -49,29 +49,43 @@ class GroceryList extends Component {
     }
 
     sendSms = (event) => {
-        axios.post(`/api/sms/${this.state.emailOrNumber}`, this.state)
-            .then(res => {console.log(res)})
+        if (!isNaN(this.state.emailOrNumber)) {
+            axios.post(`/api/sms/${this.state.emailOrNumber}`, this.state)
+            .then(res => {
+                console.log(res)
+                this.props.alert.success(`Text sent to ${this.state.emailOrNumber}`)
+            })
             .catch((error) => { console.log(error) })
             event.preventDefault()
+        }
+        else {
+            this.props.alert.error('Insert a valid phone number')
+        }
+        
     }
 
     sendEmail = (event) => {
-        axios.post(`/api/email/${this.state.emailOrNumber}`, this.state)
-            .then(res => {console.log(res)})
-            .catch((error) => { console.log(error) })
-             event.preventDefault()
+            if (this.state.emailOrNumber.includes("@")) {
+                axios.post(`/api/email/${this.state.emailOrNumber}`, this.state)
+                .then(res => {
+                    console.log(res)
+                    this.props.alert.success(`Email sent to ${this.state.emailOrNumber}`)
+                })
+                .catch((error) => { console.log(error) })
+                 event.preventDefault()
+            } 
+            else { this.props.alert.error('Insert a valid email')}
+       
     }
 
     getStores = () => {
         getPosition()
         .then((position) => {
-            console.log(position.coords.longitude)
             const long = position.coords.longitude
             const lat = position.coords.latitude
             return axios.get(`/api/gmap?long=${long}&lat=${lat}`)
         })
         .then((res) => {
-            console.log(res.data)
             let groceryStores = res.data.map(store => {
                 return {name : store.name, vicinity : store.vicinity}
             })
@@ -152,7 +166,7 @@ class GroceryList extends Component {
     }
   }
   
-  export default GroceryList;
+  export default withAlert(GroceryList);
 
   const GroceryListWrapper = Wrapper.extend`
     padding-top : 10vh;

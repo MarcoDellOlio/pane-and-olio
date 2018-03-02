@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import {Wrapper, Img} from './BasicComponents'
+import {Wrapper} from './BasicComponents'
 import RecipeCardList from './RecipeCardList'
 import styled from 'styled-components';
 import axios from 'axios'
-import GoSearch from 'react-icons/lib/go/search'
 import _ from 'lodash'
 
 class Home extends Component {

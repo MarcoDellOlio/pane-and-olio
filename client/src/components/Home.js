@@ -124,5 +124,8 @@ const SplashImage = styled.div`
   background-size:     cover;              
   background-repeat:   no-repeat;
   background-position: center center;
+  @media (mai-width: 420px) {
+    height : 70%;
+  }
 `
 

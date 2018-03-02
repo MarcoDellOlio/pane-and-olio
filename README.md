@@ -28,16 +28,15 @@ https://pane-and-olio.herokuapp.com
 
 ---
 #### Specifics
-The application's architecture solve the following probelms:
+The application's architecture solves the following probelms:
 
-**Authentication:** The authentication system is managed by a third party API "auth0" holding its own remote database, the first challenge was integrating the local MongoDB database and keep it constantly synchronized with authentication actions.
+**Authentication:** The authentication system is managed by a third party API "auth0" holding its own remote database, the first challenge was integrating the local MongoDB database and keeping it constantly synchronized with authentication actions.
 
-**Data retrieving:** The database stores only the necessary references to effectively retrieve the correct data from the Food API. The challenge was relating the stored references and the user preferences with the incoming data and display accordingly.
+**Data retrieving:** The database stores only the necessary references to effectively retrieve the correct data from the Food API. The challenge was relating the stored references and the user preferences with the incoming data and displaying it accordingly.
 
-**Visualization:** The front-end was built with React-JS allowing the separation of concern for every specific component. The challenge was integrating the user interaction, the data store in the database and the data incoming from the external API in a cycle of Interaction > Fetching > Storing > Returning > Display. Every active component communicates both with the API and the DB allowing the user to interact with the retrieved data and retain those data making it available later.
+**Visualization:** The front-end was built with React-JS allowing the separation of concern for every specific component. The challenge was integrating the user interaction, the data store in the database and the data incoming from the external API in a cycle of: Interaction > Fetching > Storing > Returning > Display. Every active component communicates both with the API and the DB allowing the user to interact with the retrieved data and retain those data making it available later.
 
-This structure will also allow me to implement more effectively the Stage 2 of this project: having a Google Home device triggering action in specifics component through informations send to the server by a JSON file.
-
+This structure will also allow me to implement more effectively the Stage 2 of this project: having a Google Home device triggering action in specifics component through informations sent to the server by a JSON file.
 ---
 
 

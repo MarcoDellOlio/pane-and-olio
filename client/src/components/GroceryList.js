@@ -50,15 +50,13 @@ class GroceryList extends Component {
 
     sendSms = (event) => {
         axios.post(`/api/sms/${this.state.emailOrNumber}`, this.state)
-            .then(res => {
-                console.log(res)
-            })
+            .then(res => {console.log(res)})
             .catch((error) => { console.log(error) })
-        event.preventDefault()
+            event.preventDefault()
     }
 
     sendEmail = (event) => {
-        axios.post(`/api/email/${this.state.emailOrNumber}`, this.state.groceryList)
+        axios.post(`/api/email/${this.state.emailOrNumber}`, this.state)
             .then(res => {console.log(res)})
             .catch((error) => { console.log(error) })
              event.preventDefault()

@@ -26,16 +26,6 @@ const RecipeSchema = new Schema(
   }
 )
 
-const GroceryListSchema = new Schema(
-  {
-    ingredientsList : [IngredientSchema],
-    groceryStoreAddress : {type: String}
-  },
-  {
-    timestamps: {},
-  }
-)
-
 const UserSchema = new Schema(
   {
     username: { type: String},
@@ -55,7 +45,6 @@ const UserSchema = new Schema(
 
 module.exports = {
   UserSchema,
-  GroceryListSchema,
   RecipeSchema,
   IngredientSchema
 }

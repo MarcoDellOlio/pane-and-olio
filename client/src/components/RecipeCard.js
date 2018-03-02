@@ -56,7 +56,7 @@ class RecipeCard extends Component {
     flex-direction : column;
     background-color : ghostwhite;
     font-size : 2vh;
-    margin: 1% 0% 1% 1%;
+    margin: 2% 0% 1% 4%;
     border: 1px solid;
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     border-radius: 4px;

@@ -8,6 +8,14 @@ import logo from './olive-oil.png'
 
 class NavbarComponent extends Component {
 
+  state = {
+    currentPage : ""
+  }
+
+  setCurrentPage = (currentPage, event) => {
+    this.setState({currentPage})
+  }
+
   showSettings (event) {
     event.preventDefault();
     
@@ -38,17 +46,29 @@ class NavbarComponent extends Component {
 
       <Navbar>
 
-            <HomeLogo> <Link to='/home'><Logo src={logo} alt=""/></Link> </HomeLogo>
+            <HomeLogo> 
+              <Link to='/home'
+              onClick={() => this.setCurrentPage("home")}>
+              <Logo src={logo} alt=""/></Link> 
+            </HomeLogo>
               {!isAuthenticated()? 
               <LoginInfo/>
             :
             <LoginInfo>
               <NavItem> Hi {name}</NavItem>
-              <NavItem> <Link to='/cookbook'>Cookbook</Link> </NavItem>
-              <NavItem>
-                <Link to='/groceryList'>Grocery List</Link>
+              <NavCookBook currentPage={this.state.currentPage}> 
+                <Link to='/cookbook'
+                onClick={() => this.setCurrentPage("cookbook")}>
+                Cookbook
+                </Link> 
+              </NavCookBook>
+              <NavGrocery currentPage={this.state.currentPage}>
+                <Link to='/groceryList' 
+                  onClick={() => this.setCurrentPage("groceryList")}>
+                  Grocery List
+                </Link>
                 <ItemsInCart>{itemsInCart > 0? itemsInCart : null}</ItemsInCart>
-              </NavItem>
+              </NavGrocery>
               
             </LoginInfo>
               }
@@ -90,11 +110,31 @@ const NavItem = styled.div`
   display : flex;
   align-items : center;
 `
+const NavGrocery = NavItem.extend`
+  text-decoration: ${props => {
+    if (props.currentPage === "groceryList")
+    { return "underline" }
+    else {return null}
+  }};
+`
+const NavCookBook = NavItem.extend`
+  text-decoration: ${props => {
+    if (props.currentPage === "cookbook")
+    { return "underline" }
+    else {return null}
+}};
+`
+
 const ItemsInCart = styled.div`
   height : 100%;
   display : inline-block;
   padding-top: 40%;
   color : red;
+  text-decoration: ${props => {
+    if (props.currentPage === "groceryList")
+    { return "none" }
+    else {return "none" }
+  }}
 `
 
 const HomeLogo = styled.div`

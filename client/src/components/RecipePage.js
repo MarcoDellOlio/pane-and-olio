@@ -11,8 +11,12 @@ class RecipePage extends Component {
     state = {
         recipe : {},
         savedRecipeId : "",
-        ingredientsOrPreparation : "ingredients"
+        ingredientsOrPreparation : "ingredients",
     }
+
+    setCurrentPage = (currentPage, event) => {
+        this.setState({currentPage})
+      }
 
     getRecipeInfo = () => {
         const recipeId = this.props.match.params.recipeId
@@ -96,8 +100,16 @@ class RecipePage extends Component {
 
                     <RecipeContent>
                         <RecipeMenu>
-                            <div onClick={() => this.showIngredients()}>Ingredients</div>
-                            <div onClick={() => this.showPreparation()}>Preparation</div>
+                            <Ingredients 
+                                onClick={() => this.showIngredients()} 
+                                currentPage={this.state.ingredientsOrPreparation}
+                                >Ingredients
+                            </Ingredients>
+                            <Preparation 
+                                onClick={() => this.showPreparation()}
+                                currentPage={this.state.ingredientsOrPreparation}
+                                >Preparation
+                            </Preparation>
                         </RecipeMenu>
                         {
                             this.state.ingredientsOrPreparation === "ingredients"?
@@ -119,6 +131,21 @@ class RecipePage extends Component {
   }
   
   export default RecipePage;
+
+  const Ingredients = styled.div`
+    text-decoration: ${props => {
+        if (props.currentPage === "ingredients")
+        { return "underline" }
+        else {return null}
+    }};
+  `
+  const Preparation = styled.div`
+  text-decoration: ${props => {
+        if (props.currentPage === "preparation")
+        { return "underline" }
+        else {return null}
+    }};
+  `
 
   const RecipeCardContainer = Wrapper.extend`
     height : auto;

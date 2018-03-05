@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import {Wrapper} from './BasicComponents'
-import styled from 'styled-components'
+
+
+
+
 
 class PreparationView extends Component {
 
@@ -49,6 +52,6 @@ class PreparationView extends Component {
    background-color : ghostwhite;
  `
 
-const Step = styled.div`
+const Step = Wrapper.extend`
   padding 1% 0;
 `

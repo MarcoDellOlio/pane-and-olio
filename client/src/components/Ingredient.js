@@ -180,16 +180,16 @@ class Ingredient extends Component {
   `
   const CheckButtonYes = CheckButton.extend`
   color : ${props => {
-    if (props.present === undefined) {null}
-    else if (props.present === false) {null}
+    if (props.present === undefined) {return null}
+    else if (props.present === false) {return null}
     else {return "green"}
     }};
  `
  const CheckButtonNo = CheckButton.extend`
  color : ${props => {
-    if (props.present === undefined) {null}
+    if (props.present === undefined) {return null}
     else if (props.present === false) {return "red"}
-    else {null}
+    else {return null}
     }} ;
 `
   const SubstitutesContainer = Wrapper.extend`

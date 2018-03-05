@@ -89,9 +89,9 @@ class GroceryList extends Component {
             let groceryStores = res.data.map(store => {
                 return {name : store.name, vicinity : store.vicinity}
             })
-            groceryStores = groceryStores.filter((store, index) => {return index < 3 })
-            this.setState({groceryStores})
+           return groceryStores = groceryStores.filter((store, index) => {return index < 3 })
         })
+        .then((groceryStores => this.setState({groceryStores})))
         .catch((error) => { console.log(error) })
     }
 
@@ -176,9 +176,9 @@ class GroceryList extends Component {
     justify-content : center;
   `
 
-  const GroceryContainer = styled.div`
-    
+  const GroceryContainer = Wrapper.extend`
     margin : 5% 0;
+    flex-wrap : wrap;
     width : 90%;
     background-color : ghostwhite;
     border: 1px solid;

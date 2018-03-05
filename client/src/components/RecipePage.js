@@ -174,9 +174,9 @@ class RecipePage extends Component {
     font-size: 4vh;
     font-weight : bolder;
     color : ${props => {
-        if (props.isSaved === undefined) {"#484848"}
+        if (props.isSaved === undefined) {return "#484848"}
         else if (props.isSaved) {return "goldenrod"}
-        else {null}
+        else {return null}
         }} ;
 `
 

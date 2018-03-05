@@ -35,8 +35,8 @@ class RecipeCardList extends Component {
     height : auto;
   `
 
-  const recipeslist = [
-    {
+  // const recipeslist = [
+    [{
       "vegetarian": true,
       "vegan": false,
       "glutenFree": false,

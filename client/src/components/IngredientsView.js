@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import {Wrapper} from './BasicComponents'
 import Ingredient from './Ingredient'
-import styled from 'styled-components'
-
 
 
 
@@ -40,7 +38,8 @@ class IngredientsView extends Component {
   
   export default IngredientsView;
 
-  const IngredientWrapper = styled.div`
+  const IngredientWrapper = Wrapper.extend`
     padding : 2vh 0;
     height : auto;
+    flex-wrap : wrap;
   `

@@ -176,7 +176,8 @@ class GroceryList extends Component {
     justify-content : center;
   `
 
-  const GroceryContainer = Wrapper.extend`
+  const GroceryContainer = styled.div`
+    
     margin : 5% 0;
     width : 90%;
     background-color : ghostwhite;

@@ -74,7 +74,6 @@ export default class Auth {
         localStorage.setItem('picture', profile.picture);
         localStorage.setItem('email', profile.email);
         localStorage.setItem('username', profile.nickname);
-        console.log(authResult)
         // verify DB
         this.findOrCreateUser()
         history.replace('/home');

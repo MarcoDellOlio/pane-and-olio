@@ -13,10 +13,10 @@ const pusher = new Pusher({
 
 
   router.post('/', (req,res) => {
-    console.log(req.body.result.parameters.name)
+    console.log(req.body.result.parameters.name[0])
 
     pusher.trigger('my-channel', 'my-event', {
-        "searchWord": req.body.result.parameters.name[0]
+        "searchWord": req.body.result.parameters.name
       });
 
   })

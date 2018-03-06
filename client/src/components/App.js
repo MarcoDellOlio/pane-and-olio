@@ -51,9 +51,10 @@ class App extends Component {
   render() {
 
     const channel = pusher.subscribe('my-channel');
+    
     channel.bind('my-event', function(data) {
     console.log(data.searchWord)
-    return (<Redirect to="/home"/>)
+    this.context.router.push('/home');
     });
 
 
@@ -62,7 +63,6 @@ class App extends Component {
       <AppContainer>
         <NavbarComponent auth={auth} itemsInCart={this.state.itemsInCart}/>      
         <Switch>
-
           <Route exact path="/" render={(props) => <Redirect to="/home"/>} />
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/profile" render={(props) => 

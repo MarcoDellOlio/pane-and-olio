@@ -13,7 +13,7 @@ const pusher = new Pusher({
 
 
   router.post('/', (req,res) => {
-    console.log(req.body.originalRequest)
+    console.log(req.body.result)
 
     // pusher.trigger('my-channel', 'my-event', {
     //     "message": "hello world"

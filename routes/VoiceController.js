@@ -15,12 +15,7 @@ const pusher = new Pusher({
   router.post('/', (req,res) => {
     console.log(req.body.result.parameters.name)
 
-    // pusher.trigger('my-channel', 'my-event', {
-    //     "message": "hello world"
-    //   });
-    res.send(JSON.stringify({ "speech": "Yes!", "displayText": "YES"
-  //"speech" is the spoken version of the response, "displayText" is the visual version
-  }));
+    
   })
   
   

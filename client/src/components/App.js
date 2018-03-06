@@ -12,11 +12,6 @@ import Auth from '../Auth/Auth';
 import history from '../Auth/history';
 import styled from 'styled-components';
 
-
-const AppContainer = styled.div`
-  width : 100%;
-  height: 100%;
-`
 const auth = new Auth();
 
 const handleAuthentication = ({location}) => {
@@ -25,6 +20,10 @@ const handleAuthentication = ({location}) => {
   }
 }
 
+const pusher = new Pusher('4cb22b1b0d97095c5f2a', {
+  cluster: 'us2',
+  encrypted: true
+});
 
 class App extends Component {
   
@@ -49,6 +48,14 @@ class App extends Component {
 
   
   render() {
+
+    const channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+    console.log(data.searchWord)
+    return (<Redirect to="/home"/>)
+    });
+
+
     return (
       <Router history={history}>
       <AppContainer>
@@ -86,3 +93,8 @@ class App extends Component {
 }
 
 export default App;
+
+const AppContainer = styled.div`
+  width : 100%;
+  height: 100%;
+`

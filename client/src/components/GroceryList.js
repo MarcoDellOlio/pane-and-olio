@@ -9,14 +9,6 @@ import FaEnvelope from 'react-icons/lib/fa/envelope'
 import { withAlert } from 'react-alert'
 import Pusher from 'pusher-js';
 
-const pusher = new Pusher('4cb22b1b0d97095c5f2a', {
-    cluster: 'us2',
-    encrypted: true
-  });
-
-  
-
-
 const getPosition = function (options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
@@ -109,10 +101,7 @@ class GroceryList extends Component {
     
     render() {
 
-        const channel = pusher.subscribe('my-channel');
-            channel.bind('my-event', function(data) {
-            console.log(data.searchWord)
-        });
+       
 
         const groceryStores = this.state.groceryStores.map((store, index) => {
             return (

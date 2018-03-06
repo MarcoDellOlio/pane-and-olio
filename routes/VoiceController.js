@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Pusher = require('pusher');
 
-
 const pusher = new Pusher({
     appId: '486948',
     key: '4cb22b1b0d97095c5f2a',
@@ -11,17 +10,14 @@ const pusher = new Pusher({
     encrypted: true
   });
 
-
   router.post('/', (req,res) => {
-    console.log(req.body.result.parameters.name[0])
+    const searchWord = req.body.result.parameters.name[0]
 
-    pusher.trigger('my-channel', 'my-event', {
-        "searchWord": req.body.result.parameters.name
+    if (!!searchWord) {
+      pusher.trigger('my-channel', 'my-event', {
+        'searchWord': searchWord
       });
-
+    }
   })
-  
-  
-
 
 module.exports = router

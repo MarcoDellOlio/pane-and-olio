@@ -111,7 +111,7 @@ class GroceryList extends Component {
 
         const channel = pusher.subscribe('my-channel');
             channel.bind('my-event', function(data) {
-            alert(data.searchWord);
+            console.log(data)
         });
 
         const groceryStores = this.state.groceryStores.map((store, index) => {

@@ -16,7 +16,7 @@ const pusher = new Pusher({
     console.log(req.body.result.parameters.name)
 
     pusher.trigger('my-channel', 'my-event', {
-        "searchWord": req.body.result.parameters.name
+        "searchWord": req.body.result.parameters.name[0]
       });
 
   })

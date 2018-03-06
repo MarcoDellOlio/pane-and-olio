@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Router, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios'
-import Pusher from 'pusher-js';
 import NavbarComponent from './NavbarComponent';
 import Home from './Home';
 import ProfilePage from './ProfilePage'
@@ -20,11 +19,6 @@ const handleAuthentication = ({location}) => {
     auth.handleAuthentication();   
   }
 }
-
-const pusher = new Pusher('4cb22b1b0d97095c5f2a', {
-  cluster: 'us2',
-  encrypted: true
-});
 
 class App extends Component {
   
@@ -49,14 +43,6 @@ class App extends Component {
 
   
   render() {
-
-    const channel = pusher.subscribe('my-channel');
-    
-    channel.bind('my-event', function(data) {
-    console.log(data.searchWord)
-    this.context.router.push('/home');
-    });
-
 
     return (
       <Router history={history}>

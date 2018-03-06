@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Router, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios'
+import Pusher from 'pusher-js';
 import NavbarComponent from './NavbarComponent';
 import Home from './Home';
 import ProfilePage from './ProfilePage'

@@ -7,7 +7,6 @@ import FaMapMarker from 'react-icons/lib/fa/map-marker'
 import FaCommentingO from 'react-icons/lib/fa/commenting-o'
 import FaEnvelope from 'react-icons/lib/fa/envelope'
 import { withAlert } from 'react-alert'
-import Pusher from 'pusher-js';
 
 const getPosition = function (options) {
     return new Promise(function (resolve, reject) {

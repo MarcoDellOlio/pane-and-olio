@@ -4,6 +4,14 @@ import RecipeCardList from './RecipeCardList'
 import styled from 'styled-components';
 import axios from 'axios'
 import _ from 'lodash'
+import Pusher from 'pusher-js';
+
+
+const pusher = new Pusher('4cb22b1b0d97095c5f2a', {
+  cluster: 'us2',
+  encrypted: true
+});
+
 
 class Home extends Component {
 
@@ -58,6 +66,17 @@ class Home extends Component {
       this.getRecipes();
   
   }
+
+  componentDidMount = () => {
+    const channel = pusher.subscribe('my-channel');
+    
+    channel.bind('my-event', function(data) {
+    console.log(data.searchWord)
+    alert(data.searchWord)
+    // this.context.router.push('/home');
+    });
+  }
+  
   
 
 

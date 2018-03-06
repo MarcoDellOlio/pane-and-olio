@@ -39,6 +39,9 @@ app.use('/api/email', EmailController)
 const GMapController = require('./routes/GMapController')
 app.use('/api/gmap', GMapController)
 
+const VoiceController = require('./routes/VoiceController')
+app.use('/api/voice', VoiceController)
+
 // redirect to the home page
 app.get('*', (req,res) => {
   res.sendFile(__dirname + '/client/build/index.html')

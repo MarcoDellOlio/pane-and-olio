@@ -7,7 +7,14 @@ import FaMapMarker from 'react-icons/lib/fa/map-marker'
 import FaCommentingO from 'react-icons/lib/fa/commenting-o'
 import FaEnvelope from 'react-icons/lib/fa/envelope'
 import { withAlert } from 'react-alert'
+import Pusher from 'pusher-js';
 
+const pusher = new Pusher('4cb22b1b0d97095c5f2a', {
+    cluster: 'us2',
+    encrypted: true
+  });
+
+  
 
 
 const getPosition = function (options) {
@@ -95,17 +102,17 @@ class GroceryList extends Component {
         .catch((error) => { console.log(error) })
     }
 
-
-
-
-
     componentWillMount = () => {
       this.getGroceryList()
       this.getStores()
     }
     
-
     render() {
+
+        const channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function(data) {
+            alert(data.message);
+        });
 
         const groceryStores = this.state.groceryStores.map((store, index) => {
             return (

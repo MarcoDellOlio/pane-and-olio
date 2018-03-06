@@ -18,8 +18,9 @@ const pusher = new Pusher({
     // pusher.trigger('my-channel', 'my-event', {
     //     "message": "hello world"
     //   });
-    
-    res.json({yes : "no"})
+    res.send(JSON.stringify({ "speech": "Yes!", "displayText": "YES"
+  //"speech" is the spoken version of the response, "displayText" is the visual version
+  }));
   })
   
   

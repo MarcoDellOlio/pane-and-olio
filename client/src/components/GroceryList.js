@@ -113,7 +113,7 @@ class GroceryList extends Component {
         channel.bind('my-event', function(data) {
         console.log(data.searchWord)
         alert("Searching for", data.searchWord)
-        this.context.router.push('/home');
+        // this.context.router.push('/home');
         });
 
         const groceryStores = this.state.groceryStores.map((store, index) => {

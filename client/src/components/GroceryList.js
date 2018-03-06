@@ -105,16 +105,18 @@ class GroceryList extends Component {
       this.getGroceryList()
       this.getStores()
     }
-    
-    render() {
-
+    componentDidMount = () => {
         const channel = pusher.subscribe('my-channel');
     
         channel.bind('my-event', function(data) {
         console.log(data.searchWord)
-        alert("Searching for", data.searchWord)
+        alert(data.searchWord)
         // this.context.router.push('/home');
         });
+    }
+    
+    
+    render() {
 
         const groceryStores = this.state.groceryStores.map((store, index) => {
             return (

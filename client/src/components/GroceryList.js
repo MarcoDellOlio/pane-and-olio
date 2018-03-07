@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Wrapper} from './BasicComponents'
-import { Route, Router, Redirect, Switch } from 'react-router-dom';
 import GroceryItem from './GroceryItem'
 import axios from 'axios'
 import styled from 'styled-components'

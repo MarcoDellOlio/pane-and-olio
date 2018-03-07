@@ -62,10 +62,10 @@ class App extends Component {
             })
     })
     .then( res => {
-      // console.log(res.data)
+      console.log(res.data)
       this.setState({recipes : res.data})
       history.push('/');
-      // Router.refresh();
+   
     })
     
     });

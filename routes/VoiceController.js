@@ -12,7 +12,7 @@ const pusher = new Pusher({
 
   router.post('/', (req,res) => {
     const searchWord = req.body.result.parameters.name[0]
-    console.log(req.body.result.parameters.name[0])
+    console.log(req.body.result.parameters.name.join(""))
     if (!!searchWord) {
       pusher.trigger('my-channel', 'my-event', {
         'searchWord': searchWord

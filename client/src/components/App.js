@@ -11,6 +11,12 @@ import GroceryList from './GroceryList'
 import Auth from '../Auth/Auth';
 import history from '../Auth/history';
 import styled from 'styled-components';
+import Pusher from 'pusher-js';
+
+const pusher = new Pusher('4cb22b1b0d97095c5f2a', {
+  cluster: 'us2',
+  encrypted: true
+});
 
 const auth = new Auth();
 
@@ -39,8 +45,16 @@ class App extends Component {
   componentWillMount() {
     this.getNumberOfItemsInCart()
   }
-  
 
+  componentDidMount = () => {
+    const channel = pusher.subscribe('my-channel');
+    
+    channel.bind('my-event', function(data) {
+    console.log(data.searchWord)
+    alert(data.searchWord)
+    // this.context.router.push('/home');
+    });
+  }
   
   render() {
 

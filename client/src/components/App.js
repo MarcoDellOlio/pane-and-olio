@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Router, Redirect, Switch } from 'react-router-dom';
+import { Route, Router, Redirect, Switch} from 'react-router-dom';
 import axios from 'axios'
 import NavbarComponent from './NavbarComponent';
 import Home from './Home';
@@ -29,6 +29,7 @@ const handleAuthentication = ({location}) => {
 class App extends Component {
   
   state = {
+    
   }
 
   getNumberOfItemsInCart = () => {
@@ -41,22 +42,46 @@ class App extends Component {
     
   }
 
+  getRecipeByVoice = () => {
+    const channel = pusher.subscribe('my-channel');
+    
+    channel.bind('my-event', data => {
+    console.log(data.searchWord)
+    
+    axios({
+      method: 'get',
+      url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?query=${data.searchWord}&number=10`,
+      headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
+    })
+    .then(res => {
+      const idList = res.data.results.map(recipe => {return recipe.id}).join("%2C")
+      return axios({
+              method: 'get',
+              url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${idList}&includeNutrition=false`,
+              headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
+            })
+    })
+    .then( res => {
+      // console.log(res.data)
+      this.setState({recipes : res.data})
+      history.replace('/home');
+    })
+    
+    });
+  }
+
   
   componentWillMount() {
     this.getNumberOfItemsInCart()
   }
 
   componentDidMount = () => {
-    const channel = pusher.subscribe('my-channel');
-    
-    channel.bind('my-event', function(data) {
-    console.log(data.searchWord)
-    alert(data.searchWord)
-    // this.context.router.push('/home');
-    });
+    this.getRecipeByVoice()
   }
   
   render() {
+
+
 
     return (
       <Router history={history}>
@@ -90,6 +115,9 @@ class App extends Component {
       </AppContainer>
     </Router>
     );
+
+
+
   }
 }
 

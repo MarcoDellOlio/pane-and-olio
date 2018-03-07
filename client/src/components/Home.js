@@ -50,19 +50,20 @@ class Home extends Component {
         })
       .then((res) => { this.setState({recipes : res.data.recipes}) })
       }
-    
-
   
-  componentWillMount() {
-
-      this.getRecipes();
-  
+  getVoiceRecipes = () => {
+    this.setState({recipes : this.props.voiceSearch})
   }
 
   
-  
-  
-
+  componentWillMount() {
+    if (this.props.voiceSearch) {
+      this.getVoiceRecipes()
+    }
+    else {
+      this.getRecipes();
+    }
+  }
 
   render() {
     const { isAuthenticated } = this.props.auth;

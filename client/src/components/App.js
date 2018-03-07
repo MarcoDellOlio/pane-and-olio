@@ -64,7 +64,8 @@ class App extends Component {
     .then( res => {
       // console.log(res.data)
       this.setState({recipes : res.data})
-      history.replace('/home');
+      history.push('/');
+      // Router.refresh();
     })
     
     });
@@ -89,7 +90,7 @@ class App extends Component {
         <NavbarComponent auth={auth} itemsInCart={this.state.itemsInCart}/>      
         <Switch>
           <Route exact path="/" render={(props) => <Redirect to="/home"/>} />
-          <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
+          <Route exact path="/home" render={(props) => <Home auth={auth} {...props} voiceSearch={this.state.recipes}/>} />
           <Route exact path="/profile" render={(props) => 
             (!auth.isAuthenticated() ? 
             (<Redirect to="/home"/>) : 

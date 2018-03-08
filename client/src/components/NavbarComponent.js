@@ -72,7 +72,7 @@ class NavbarComponent extends Component {
               }
             <LogIn>
               {!isAuthenticated()? 
-              <div onClick={this.login.bind(this)}>Log In</div> : 
+              <div onClick={this.login.bind(this)}>Sign In / Log In</div> : 
               <div onClick={this.logout.bind(this)}>Log Out</div>
               }
             </LogIn>

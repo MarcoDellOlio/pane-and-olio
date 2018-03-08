@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Wrapper} from './BasicComponents'
+import {Wrapper, Img} from './BasicComponents'
 import GroceryItem from './GroceryItem'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -155,7 +155,12 @@ class GroceryList extends Component {
                 </Messages>
                 <StoresTitle>Closest Grocery Stores</StoresTitle>
                 <Wrapper>
-                    {groceryStores}
+                    {
+                        this.state.groceryStores.length > 0? 
+                        groceryStores 
+                        :
+                        <Img src="https://media.giphy.com/media/EhTIih4rcMoSI/source.gif" alt=""/> 
+                    }
                 </Wrapper>
             </MessageAndStores>
 

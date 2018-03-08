@@ -9,6 +9,7 @@ Pane & Olio is the ultimate cooking app.
 * Fill your grocery list and send it by text or mail
 * Retrieve the list of closest grocery stores
 * Social authentication
+* UPDATE! Search recipies with Google Home/Assistant
 
 ---
 ##### Background
@@ -36,7 +37,9 @@ The application's architecture solves the following probelms:
 
 **Visualization:** The front-end was built with React-JS allowing the separation of concern for every specific component. The challenge was integrating the user interaction, the data store in the database and the data incoming from the external API in a cycle of: Interaction > Fetching > Storing > Returning > Display. Every active component communicates both with the API and the DB allowing the user to interact with the retrieved data and retain those data making it available later.
 
-This structure will also allow me to implement more effectively the Stage 2 of this project: having a Google Home device triggering action in specifics component through informations sent to the server by a JSON file.
+**Voice Control** A vocal search can be triggered using Google Home or Google Assistant. The device collect the voice input, google Dialog flow AI tranlate into a string and Google Cloud server send the JSON file through a post request to my server. In the route a websocket send the parsed JSON file and sent to the React Client which call the recipe API with the resulting string. 
+
+
 ---
 
 
@@ -70,6 +73,8 @@ Realized with Balsamiq
 ---
 #### Libraries
 CSS : [Styled-Components](https://www.styled-components.com/)
+
+Websockets : [Pusher.js](https://pusher.com/)
 
 Symbols : [React-Icons](https://gorangajic.github.io/react-icons/fa.html)
 

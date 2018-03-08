@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {Wrapper} from './BasicComponents'
+import {Wrapper, Img} from './BasicComponents'
 import RecipeCard from './RecipeCard'
+import styled from 'styled-components';
 
 class RecipeCardList extends Component {
 
@@ -17,10 +18,16 @@ class RecipeCardList extends Component {
       const recipes = list.map((recipe) => {
         return ( <RecipeCard key={recipe.id} {...recipe}/>)
       })
-
       return (
         <RecipesCardBoard>
-          {recipes}
+          {
+            this.props.recipes.length < 1?
+            <LoaderWrapper>
+                 <Img src="https://media.giphy.com/media/EhTIih4rcMoSI/source.gif" alt=""/> 
+            </LoaderWrapper>
+          :
+          recipes
+          }
         </RecipesCardBoard>
       );
     }
@@ -32,6 +39,11 @@ class RecipeCardList extends Component {
   const RecipesCardBoard = Wrapper.extend`
     flex-direction : row;
     flex-wrap : wrap;
+    height : auto;
+  `
+
+  const LoaderWrapper = styled.div`
+    width : 100%;
     height : auto;
   `
 

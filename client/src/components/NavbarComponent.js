@@ -142,6 +142,7 @@ const HomeLogo = styled.div`
 const LogIn = styled.div`
 width : 16%;
 text-align : right;
+cursor: pointer;
 `
 const Logo = styled.img`
   width : 70%

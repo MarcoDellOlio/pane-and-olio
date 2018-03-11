@@ -115,12 +115,12 @@ class Ingredient extends Component {
         return (
             <OuterWrapper>
                 <IngredientWrapper >
-                    <CheckButtonYes onClick={() => this.isPresent(true)} present={present}><FaCheck/></CheckButtonYes>
+                    <CheckButtonYes onClick={() => this.isPresent(true)} present={present}><FaCheck /></CheckButtonYes>
                     <IngredientName>{ingredient.originalString} </IngredientName>
                     <CheckButtonNo onClick={() => this.isPresent(false)} present={present}><MdSwapHoriz /></CheckButtonNo>
                     <CheckButton onClick={() => this.addToGroceryList()}><FaCartPlus /></CheckButton>
                 </IngredientWrapper>
-                {present === false && this.state.substitutes.length !== 0  ?
+                {present === false && this.state.substitutes.length !== 0 ?
                     <SubstitutesContainer>
                         {substitutes}
                     </SubstitutesContainer>
@@ -136,9 +136,9 @@ class Ingredient extends Component {
 export default withAlert(Ingredient);
 
 const OuterWrapper = Wrapper.extend`
-  `
+`
 const IngredientWrapper = Wrapper.extend`
-   flex-direction : row;
+    flex-direction : row;
     border: 1px solid;
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     border-radius: 4px;
@@ -147,23 +147,25 @@ const IngredientWrapper = Wrapper.extend`
     text-align : center;
     background-color : ghostwhite;
     justify-content : center;
-  `
+`
 const IngredientName = Wrapper.extend`
-   width : 70%;
-  `
+    width : 70%;
+`
 const CheckButton = Wrapper.extend`
-   width : 10%;
-   font-size : 3vh;
-  `
+    cursor: pointer;
+    width : 10%;
+    font-size : 3vh;
+`
+
 const CheckButtonYes = CheckButton.extend`
-  color : ${props => {
+    color : ${props => {
         if (props.present === undefined) { return null }
         else if (props.present === false) { return null }
         else { return "green" }
     }};
- `
+`
 const CheckButtonNo = CheckButton.extend`
- color : ${props => {
+    color : ${props => {
         if (props.present === undefined) { return null }
         else if (props.present === false) { return "red" }
         else { return null }
@@ -178,4 +180,4 @@ const Substitute = styled.div`
     border-radius: 4px;
     width : 100%;
     margin : 0.4% 0;
-  `
+`

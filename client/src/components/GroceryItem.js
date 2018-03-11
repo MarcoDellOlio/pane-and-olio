@@ -39,4 +39,5 @@ const Cross = styled.div`
     width : 20%;
     text-align: right;
     margin-right: 5%;
+    cursor: pointer;
 `

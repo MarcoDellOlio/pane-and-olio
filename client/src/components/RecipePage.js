@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Wrapper} from './BasicComponents'
+import { Wrapper } from './BasicComponents'
 import IngredientsView from './IngredientsView'
 import PreparationView from './PreparationView'
 import axios from 'axios'
@@ -9,14 +9,14 @@ import FaStar from 'react-icons/lib/fa/star'
 class RecipePage extends Component {
 
     state = {
-        recipe : {},
-        savedRecipeId : "",
-        ingredientsOrPreparation : "ingredients",
+        recipe: {},
+        savedRecipeId: "",
+        ingredientsOrPreparation: "ingredients",
     }
 
     setCurrentPage = (currentPage, event) => {
-        this.setState({currentPage})
-      }
+        this.setState({ currentPage })
+    }
 
     getRecipeInfo = () => {
         const recipeId = this.props.match.params.recipeId
@@ -24,56 +24,55 @@ class RecipePage extends Component {
         axios({
             method: 'get',
             url: `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information?includeNutrition=false`,
-            headers: { "X-Mashape-Key" : process.env.REACT_APP_XMashapeKey}
-          })
-        .then((res) => { this.setState({recipe : res.data}) })
+            headers: { "X-Mashape-Key": process.env.REACT_APP_XMashapeKey }
+        })
+            .then((res) => { this.setState({ recipe: res.data }) })
     }
 
     getSavedRecipeId = () => {
         const recipeId = this.props.match.params.recipeId
         const userId = localStorage.userId
         axios.get(`/api/users/${userId}/recipes`)
-        .then((res) => {
-            return res.data.filter((recipe) => 
-            {return recipe.recipeId === recipeId.toString()})
-        })
-        .then((savedRecipe) => {
-            if (savedRecipe.length === 1) {
-                this.setState({savedRecipeId : savedRecipe[0]._id})
-            }
+            .then((res) => {
+                return res.data.filter((recipe) => { return recipe.recipeId === recipeId.toString() })
+            })
+            .then((savedRecipe) => {
+                if (savedRecipe.length === 1) {
+                    this.setState({ savedRecipeId: savedRecipe[0]._id })
+                }
 
-            else {this.setState({savedRecipeId : ""})}
-        })
-        .catch((error) => { console.log(error) })
+                else { this.setState({ savedRecipeId: "" }) }
+            })
+            .catch((error) => { console.log(error) })
     }
 
     saveOrDeleteRecipe = () => {
         const recipeId = this.state.recipe.id
         const name = this.state.recipe.title
         const userId = localStorage.userId
-        const newRecipe = {recipeId, name}
+        const newRecipe = { recipeId, name }
         const recipeDbId = this.state.savedRecipeId
         if (recipeDbId === "") {
             console.log("something happening")
             axios.post(`/api/users/${userId}/recipes`, newRecipe)
-            .then(res => this.getSavedRecipeId())
-            .catch((error) => { console.log(error) })
+                .then(res => this.getSavedRecipeId())
+                .catch((error) => { console.log(error) })
         }
         else {
             axios.delete(`/api/users/${userId}/recipes/${recipeDbId}`)
-            .then(res => this.getSavedRecipeId())
-            .catch((error) => { console.log(error) })
+                .then(res => this.getSavedRecipeId())
+                .catch((error) => { console.log(error) })
         }
-      }
+    }
 
     showIngredients = () => {
-        this.setState({ingredientsOrPreparation : "ingredients"})
+        this.setState({ ingredientsOrPreparation: "ingredients" })
     }
-    
+
     showPreparation = () => {
-        this.setState({ingredientsOrPreparation : "preparation"})
+        this.setState({ ingredientsOrPreparation: "preparation" })
     }
-    
+
     componentWillMount() {
         this.getRecipeInfo()
         this.getSavedRecipeId()
@@ -90,64 +89,65 @@ class RecipePage extends Component {
         const loggedIn = localStorage.id_token
 
         return (
-            
+
             <RecipeWrapper>
                 <RecipeCardContainer>
                     <RecipeTitle>
-                        <Title>{recipe.title}</Title> 
-                        {loggedIn? <Save isSaved={this.state.savedRecipeId} onClick={() => this.saveOrDeleteRecipe()}> <FaStar/> </Save> : null }
+                        <Title>{recipe.title}</Title>
+                        {loggedIn ? <Save isSaved={this.state.savedRecipeId} onClick={() => this.saveOrDeleteRecipe()}> <FaStar /> </Save> : null}
                     </RecipeTitle>
 
                     <RecipeContent>
                         <RecipeMenu>
-                            <Ingredients 
-                                onClick={() => this.showIngredients()} 
+                            <Ingredients
+                                onClick={() => this.showIngredients()}
                                 currentPage={this.state.ingredientsOrPreparation}
-                                >Ingredients
+                            >Ingredients
                             </Ingredients>
-                            <Preparation 
+                            <Preparation
                                 onClick={() => this.showPreparation()}
                                 currentPage={this.state.ingredientsOrPreparation}
-                                >Preparation
+                            >Preparation
                             </Preparation>
                         </RecipeMenu>
                         {
-                            this.state.ingredientsOrPreparation === "ingredients"?
-                            <IngredientsView 
-                                ingredients={ingredients} 
-                                recipeId={savedRecipeId}
-                                getNumberOfItemsInCart={this.props.getNumberOfItemsInCart}
+                            this.state.ingredientsOrPreparation === "ingredients" ?
+                                <IngredientsView
+                                    ingredients={ingredients}
+                                    recipeId={savedRecipeId}
+                                    getNumberOfItemsInCart={this.props.getNumberOfItemsInCart}
                                 />
-                            :
-                            <PreparationView 
-                                instructions={instructions} 
-                                recipeId={savedRecipeId}/>
+                                :
+                                <PreparationView
+                                    instructions={instructions}
+                                    recipeId={savedRecipeId} />
                         }
                     </RecipeContent>
                 </RecipeCardContainer>
             </RecipeWrapper>
         )
     }
-  }
-  
-  export default RecipePage;
+}
 
-  const Ingredients = styled.div`
+export default RecipePage;
+
+const Ingredients = styled.div`
+    cursor: pointer;
     text-decoration: ${props => {
-        if (props.currentPage === "ingredients")
-        { return "underline" }
-        else {return null}
+        if (props.currentPage === "ingredients") { return "underline" }
+        else { return null }
     }};
   `
-  const Preparation = styled.div`
+  
+const Preparation = styled.div`
+  cursor: pointer;
   text-decoration: ${props => {
-        if (props.currentPage === "preparation")
-        { return "underline" }
-        else {return null}
+        if (props.currentPage === "preparation") { return "underline" }
+        else { return null }
     }};
   `
 
-  const RecipeCardContainer = Wrapper.extend`
+const RecipeCardContainer = Wrapper.extend`
     height : auto;
     width : 95%;
     @media (min-width: 420px) {
@@ -155,7 +155,7 @@ class RecipePage extends Component {
       }
   `
 
-  const RecipeTitle = styled.div`
+const RecipeTitle = styled.div`
     font-size : 3vh;
     margin : 3vh 0;
     height : 10%;
@@ -163,21 +163,22 @@ class RecipePage extends Component {
     display : flex;
     align-items : center;
   `
-  const Title = styled.div`
+const Title = styled.div`
     width : 90%;
     margin-left : 5%;
   `
 
-  const Save = styled.div`
+const Save = styled.div`
     text-align : center;
     width: 10%;
     font-size: 4vh;
+    cursor: pointer;
     font-weight : bolder;
     color : ${props => {
-        if (props.isSaved === undefined) {return "#484848"}
-        else if (props.isSaved) {return "goldenrod"}
-        else {return null}
-        }} ;
+        if (props.isSaved === undefined) { return "#484848" }
+        else if (props.isSaved) { return "goldenrod" }
+        else { return null }
+    }} ;
 `
 
 const RecipeWrapper = Wrapper.extend`
@@ -185,12 +186,11 @@ const RecipeWrapper = Wrapper.extend`
     height : auto;
 `
 
- const RecipeContent = Wrapper.extend`
+const RecipeContent = Wrapper.extend`
   width : 90%;
  `
 
- const RecipeMenu = Wrapper.extend`
+const RecipeMenu = Wrapper.extend`
   flex-direction : row;
   justify-content : space-around;
 `
-  

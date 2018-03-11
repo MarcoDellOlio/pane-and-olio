@@ -19,7 +19,8 @@ class GroceryList extends Component {
 
     state = {
         groceryList : [],
-        groceryStores : []
+        groceryStores : [],
+        emailOrNumber : ""
       }
 
     getGroceryList = () => {
@@ -147,8 +148,8 @@ class GroceryList extends Component {
                             onChange={this.handlChange}
                         />
                         <Buttons>
-                            <div onClick={this.sendSms}><FaCommentingO/></div>
-                            <div onClick={this.sendEmail}><FaEnvelope/></div>
+                            <Send onClick={this.sendSms}><FaCommentingO/></Send>
+                            <Send onClick={this.sendEmail}><FaEnvelope/></Send>
                         </Buttons>
                         
                     </SendingForm>
@@ -255,3 +256,7 @@ class GroceryList extends Component {
   const Address = styled.div`
    font-weight : 100;
   `
+
+const Send = styled.div`
+    cursor: pointer;
+`
